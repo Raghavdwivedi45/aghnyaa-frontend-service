@@ -1,0 +1,143 @@
+@use "@/styles/index.scss" as *;
+
+.signup-container {
+    @include flex(row, space-between, center, $gapMedium);
+    width: 100%;
+    height: 500px;
+    color: var(--text);
+}
+
+.left-part {
+    width: 60%;
+    @include flex(column, flex-start, flex-start, $gapMedium);
+}
+
+.right-part {
+    width: 40%;
+    @include flex(column, flex-start, flex-start, $gapMedium);
+
+    h3, .right-part-text {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.left-part,
+.right-part {
+    position: relative;
+    z-index: 0;
+    height: 100%;
+    padding: $spacing-md;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--glassmorphism-bg);
+        filter: blur(1px);
+        border-radius: $radius-md;
+        z-index: -1;
+    }
+}
+
+.left-part-top-icon {
+    font-weight: bold;
+    border: 1px solid var(--border);
+    padding: $spacing-sm;
+    border-radius: $radius-pill;
+    box-shadow: var(--shadow-sm);
+}
+
+.signup-cards {
+    @include flex(row, flex-start, center, $gapMedium);
+    padding: $spacing-md;
+}
+
+.card {
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+    box-shadow: var(--shadow-sm);
+    padding: $spacing-sm;
+    height: 90px;
+    width: 120px;
+    opacity: 0.5;
+    transition: all 0.1s ease;
+
+    &:hover {
+        box-shadow: var(--shadow-sm);
+        opacity: 1;
+    } 
+}
+
+.card-img {
+    @include flex();
+}
+
+.card-text {
+    text-align: center;
+}
+
+.avatarGroup {
+  @include flex();
+}
+
+.avatar {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  transition: transform .25s ease;
+
+  &:not(:first-child) {
+    margin-left: -1*$spacing-md;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    z-index: 10 !important;
+  }
+}
+
+.avatar-text {
+    margin: 0 $spacing-md;
+}
+
+.action-btn {
+    align-self: flex-end;
+    @include flex(row, flex-end, center, $gapMedium);
+}
+
+.action-btn-text {
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.right-part-top-icon {
+    width: 100%;;
+    @include flex();
+}
+
+.right-input-group {
+    width: 100%;
+    flex: 1;
+    @include flex(column, space-between, flex-start);
+}
+
+.input-group-group {
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    width: 100%;
+}
+
+.input-group-input, .input-group-input-contact {
+    width: 100%;
+}
+
+.input-group-input-contact {
+    @include flex(row, center, center, $gapSmall);
+}
+
+.contact-group-input {
+    flex: 1;
+}

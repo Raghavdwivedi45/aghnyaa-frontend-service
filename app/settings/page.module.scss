@@ -1,0 +1,50 @@
+@use "@/styles/index.scss" as *;
+
+.settings-input-container {
+    @include flex(column, flex-start, center, 1.5*$gapLarge);
+    padding: $spacing-md;
+    width: 100%;
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+}
+
+.user-avatar {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    position: relative;
+    background-color: var(--bg);
+    box-shadow: var(--shadow-sm)
+}
+
+.user-inputs {
+    @include flex(column, flex-start, stretch, $gapLarge);
+    width: 40%;
+}
+
+.settings-heading {
+    width: 100%;
+}
+
+.user-drafts {
+    width: 100%;
+    @include flex(row, flex-start, center, $gapMedium);
+    overflow-x: auto;
+    @include scrollbar(transparent, transparent);
+}
+
+.draft-box {
+    padding: $spacing-md;
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    width: 300px;
+    height: 100px;
+}
+
+.draft-heading {
+    @include ellipsis();
+}
+
+.draft-creation {
+    font-size: small;
+}

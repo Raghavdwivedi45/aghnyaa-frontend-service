@@ -1,0 +1,8 @@
+@use "@/styles/index.scss" as *;
+
+h1.hero-tag-line {
+    text-align: center;
+    font-size: $fontTagLine;
+    width: 100%;
+    @include fade-animation();
+}

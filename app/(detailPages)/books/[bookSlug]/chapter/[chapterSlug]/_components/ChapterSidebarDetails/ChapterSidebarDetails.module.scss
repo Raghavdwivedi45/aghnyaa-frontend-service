@@ -1,0 +1,56 @@
+@use "@/styles/index.scss" as *;
+
+.chapter-list {
+    padding-left: $spacing-md;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 20px;
+        bottom: 20px;
+        border-left: 2px dotted var(--button-primary-text);
+    }
+}
+
+.verseItem,
+.verseItemActive {
+    @include flex(row, flex-start, center, $gapSmall);
+    padding: $spacing-sm;
+    position: relative;
+}
+
+.verseItem {
+    @include flex(row, flex-start, center, $gapSmall);
+    padding: $spacing-sm;
+    position: relative;
+    opacity: 0.5;
+
+    &:hover {
+        background-color: var(--glassmorphism-bg);
+        border-radius: $radius-md;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: -15px;
+        width: 15px;
+        border-top: 2px dotted var(--button-primary-text);
+    }
+}
+
+.verseItemActive {
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+
+    .activeDot {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: $spacing-sm;
+        color: var(--button-primary-text);
+        font-size: $fontVLarge;
+    }
+}

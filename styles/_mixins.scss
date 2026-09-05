@@ -1,0 +1,78 @@
+// Reusable blocks of styles.
+
+@mixin flex($direction: row, $justify: center, $align: center, $gap: null) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+
+  @if $gap !=null {
+    gap: $gap;
+  }
+
+  // Usage - @include flex(row, space-between, center);
+  // Named arguments are even better - @include flex($justify: space-between, $align: center);
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+
+  /*
+    .card { 
+        padding: 24px;
+        @include mobile { 
+            padding: 12px; 
+        } 
+    }
+    */
+}
+
+@mixin fade-animation($duration: 0.5s) {
+  transition:
+    opacity $duration ease,
+    transform $duration ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin scrollbar($thumb: var(--scroll-bg-secondary), $track: var(--button-primary-bg), $width: 4px, $radius: 4px) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: $radius;
+  }
+
+  // Usage - @include scrollbar; or @include scrollbar($thumb: var(--scroll-bg), $track: transparent);
+}
+
+@mixin overlay($value: 0.5) {
+  background-color: black;
+  opacity: $value;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+}

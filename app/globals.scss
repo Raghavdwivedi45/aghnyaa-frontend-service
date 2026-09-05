@@ -1,0 +1,100 @@
+@use '../styles/theme';
+@use '../styles/variables';
+@use '../styles/mixins';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  // background: var(--bg); - Now theme variables can directly be used like this
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  @include mixins.scrollbar($thumb: var(--scroll-bg));
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('/backgroundLightTheme.png') center center / contain no-repeat;
+  background-size: 100vw 100vh;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  a:hover {
+    // background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  margin: 0;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: none;
+  background: none;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    color: var(--h#{$i}-color);
+  }
+}
+
+// rich text style
+.ProseMirror {
+  outline: none;
+}
+
+// pagination style
+.pagination-bar {
+  width: 100%;
+  @include mixins.flex();
+  padding: 0 calc(5*variables.$spacing-lg);
+}

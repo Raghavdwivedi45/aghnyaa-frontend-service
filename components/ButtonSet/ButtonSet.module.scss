@@ -1,0 +1,77 @@
+@use "@/styles/index.scss" as *;
+
+.buttonset-container {
+    width: 100%;
+    @include flex(row, center, center, $gapMedium);
+}
+
+.button-primary,
+.button-secondary {
+    height: $button-height;
+    padding: 0 $spacing-lg;
+    border-radius: $radius-pill;
+    font-size: $fontSmall;
+    font-weight: $fontMediumBold;
+    cursor: pointer;
+    user-select: none;
+    @include flex(row, center, center, $gapSmall);
+
+    transition:
+        transform $button-transition,
+        box-shadow $button-transition,
+        background-color $button-transition,
+        border-color $button-transition,
+        color $button-transition;
+
+    outline: none;
+
+    &:focus-visible {
+        box-shadow: var(--button-focus-ring);
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.button-primary {
+    color: var(--button-primary-text);
+    background: var(--button-primary-bg);
+    border: 1px solid var(--button-border);
+    box-shadow: var(--button-shadow);
+
+    &:hover {
+        background: var(--button-primary-bg-hover);
+        box-shadow: var(--button-shadow-hover);
+    }
+}
+
+.button-primary-disabled {
+    @extend .button-primary;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button-secondary {
+    color: var(--button-secondary-text);
+    background: var(--button-secondary-bg);
+    border: 1px solid var(--button-border-strong);
+    backdrop-filter: blur(6px);
+    box-shadow: var(--button-shadow-secondary);
+
+    &:hover {
+        color: var(--button-secondary-text-hover);
+        background: var(--button-secondary-bg-hover);
+        box-shadow: var(--button-shadow-secondary-hover);
+    }
+}
+
+.button-secondary-disabled {
+    @extend .button-secondary;
+    opacity: 0.5;
+    cursor: not-allowed;
+}

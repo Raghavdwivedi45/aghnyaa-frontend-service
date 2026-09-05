@@ -1,0 +1,38 @@
+@use "@/styles/index.scss" as *;
+
+.input-container {
+    width: 100%;
+    @include flex(row, center, center, $gapMedium);
+    font: inherit;
+    color: inherit;
+}
+
+.input-each,
+.input-each-active {
+    @include flex(row, space-between, center, $gapSmall);
+    background-color: var(--glassmorphism-bg);
+    padding: $spacing-sm;
+    border: 1px solid var(--border-light);
+    border-radius: $radius-md;
+}
+
+.input-each {
+    opacity: 0.6;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.input-each-active {
+    opacity: 1;
+    border: 1px solid var(--border);
+}
+
+.input-radio {
+    accent-color: var(--button-primary-text);
+}
+
+.input-radio-hide {
+    display: none;
+}

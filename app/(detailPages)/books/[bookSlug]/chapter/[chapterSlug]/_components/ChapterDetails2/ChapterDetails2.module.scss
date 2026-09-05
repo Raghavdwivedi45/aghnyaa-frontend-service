@@ -1,0 +1,87 @@
+@use "@/styles/index.scss" as *;
+
+.chapter-content {
+    width: 75%;
+    height: 100%;
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    min-height: 75vh;
+    @include flex(column, flex-start);
+}
+
+.chapter-top {
+    width: 100%;
+    @include flex(row, space-between, flex-start);
+    border-bottom: 1px solid var(--border-medium);
+}
+
+.content-left {
+    @include flex(column, flex-start, flex-start, $gapSmall);
+}
+
+.content-right {
+    @include flex(row, flex-end, flex-start, $gapSmall);
+}
+
+.icon-container {
+    border-radius: 50%;
+    padding: $spacing-sm;
+    opacity: 0.5;
+    background-color: var(--bg);
+    box-shadow: var(--shadow-sm);
+    transition: opacity 0.1s ease;
+
+    &:hover,
+    &:active {
+        opacity: 1;
+    }
+}
+
+.chapter-bottom {
+    width: 100%;
+}
+
+.navigation-bar {
+    color: var(--text);
+    padding: $spacing-md;
+    opacity: 0.5;
+    @include flex(row, space-between, center);
+}
+
+.verse-count {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-lg;
+    position: relative;
+
+    &::before,
+    &::after {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: var(--border);
+    }
+}
+
+.verse-icon {
+    padding: 0.5*$spacing-sm;
+    border-radius: 50%;
+    transition: all 0.1s ease;
+
+    &:hover {
+        background-color: var(--bg-secondary);
+        box-shadow: var(--shadow-sm);
+        opacity: 1;
+    }
+}
+
+.verse-content {
+    color: var(--text);
+    @include flex(column, flex-start, center, $gapMedium);
+}
+
+.original-text {
+    font-family: var(--font-sanskrit);
+    font-size: $fontLarge;
+}

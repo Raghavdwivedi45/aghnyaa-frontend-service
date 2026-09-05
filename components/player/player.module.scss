@@ -1,0 +1,64 @@
+@use "@/styles/index.scss" as *;
+
+.thumbnail-container {
+    height: 100%;
+    width: 100%;
+}
+
+.playback-button {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background-color: var(--glassmorphism-bg-dark);
+    @include flex();
+}
+
+.video-duration {
+    position: absolute;
+    right: $spacing-md;
+    top: $spacing-md;
+    padding: calc(0.5*$spacing-sm);
+    border-radius: $radius-md;
+    background-color: var(--glassmorphism-bg-dark);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-tertiary);
+    font-size: $fontSmall;
+    pointer-events: none;
+
+}
+
+.video-title {
+    position: absolute;
+    bottom: $spacing-md;
+    left: $spacing-md;
+    width: calc(100% - 2*$spacing-md);
+    @include flex(row, space-between, center);
+    pointer-events: none;
+
+    h2.video-title-head {
+        color: var(--text-tertiary);
+        max-width: 50%;
+        @include ellipsis();
+    }
+}
+
+.video-tag {
+    position: absolute;
+    top: $spacing-md;
+    left: $spacing-md;
+    pointer-events: none;
+}
+
+.iframe-container {
+
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+
+    &::before {
+        content: "";
+        @include overlay(0.3);
+        pointer-events: none;
+    }
+}

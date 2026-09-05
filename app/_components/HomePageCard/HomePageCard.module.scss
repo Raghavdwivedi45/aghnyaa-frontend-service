@@ -1,0 +1,31 @@
+@use "@/styles/index.scss" as *;
+
+.showcaseSection {
+  @include flex(row, space-evenly, center, $gapMedium);
+  width: 100%;
+}
+
+.showcaseSectionReverse {
+  @include flex(row-reverse, space-evenly, center, $gapMedium);
+  width: 100%;
+}
+
+
+.heading {
+  @include flex(column, left, flex-start, $gapMedium);
+}
+
+.headingReverse {
+  width: 50%;
+}
+
+.title {
+  font-size: $fontTagLine;
+}
+
+.subtitle {
+  font-size: $fontMedium;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}

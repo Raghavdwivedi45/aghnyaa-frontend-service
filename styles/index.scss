@@ -1,0 +1,15 @@
+@forward 'variables';
+@forward 'mixins';
+@forward 'functions';
+@forward 'animations';
+
+/*
+    variables / mixins / functions emit NO CSS — free to @use everywhere.
+
+    animations IS forwarded here on purpose: CSS Modules localizes the
+    animation-name in each .module.scss, so the @keyframes must be scoped
+    into the SAME module to match. Forwarding here scopes keyframe + ref
+    together per module. The keyframe CSS duplicates per importer (tiny),
+    but it's the only reliable way for `animation: fadeIn`/`fillProgress`
+    to actually run under CSS Modules.
+*/

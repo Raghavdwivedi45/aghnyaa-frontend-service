@@ -1,0 +1,129 @@
+@use "@/styles/index.scss" as *;
+
+.card-container {
+    width: 40%;
+    max-width: 400px;
+    height: 454px;
+    border-radius: $radius-md;
+    border: 1px solid var(--border);
+    background-color: var(--glassmorphism-bg);
+    margin-bottom: calc(2*$spacing-lg);
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    position: relative;
+}
+
+.book-cover-img {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    max-height: 250px;
+    border-radius: $radius-md $radius-md 0 0;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+        height: 0;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.book-cover-icons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $spacing-sm;
+    @include flex(row, center, center, $gapMedium);
+}
+
+.book-icon-svg {
+    padding: calc(0.5*$spacing-sm);
+    border-radius: 50%;
+}
+
+.book-information {
+    width: 100%;
+    height: 35%;
+    max-height: 140px;
+    padding: $spacing-md;
+    @include flex(column, flex-start, flex-start, $gapSmall);
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+        height: 0;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    h3 {
+        color: var(--text);
+    }
+
+    p {
+        color: var(--text-secondary);
+    }
+}
+
+.book-description {
+    height: 390px;
+    width: 100%;
+    overflow-y: auto;
+    padding: $spacing-sm;
+    color: var(--text);
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+    @include scrollbar;
+
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.book-footer {
+    border-radius: 0 0 $radius-md $radius-md;
+    border-top: 1px solid var(--border);
+    @include flex();
+}
+
+.book-tags {
+    @include flex(row, flex-start, center, $gapMedium);
+}
+
+.book-footer-button1,
+.book-footer-button2 {
+    width: 50%;
+    height: 60px;
+    color: var(--text-secondary);
+    font-weight: $fontMediumBold;
+    @include flex();
+}
+
+.book-footer-button1 {
+    border-right: 1px solid var(--border);
+}

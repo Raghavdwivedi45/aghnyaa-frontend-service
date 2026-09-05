@@ -1,0 +1,93 @@
+@use "@/styles/index.scss" as *;
+
+%card {
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+}
+
+.page-container {
+    @include flex(row, space-between, flex-start, calc(1.5*$gapMedium));
+}
+
+.page-left {
+    width: 70%;
+    @include flex(row, space-between, flex-start, calc(3*$gapMedium));
+}
+
+.page-content-sidebar {
+    @extend %card;
+    position: sticky;
+    top: 25%;
+    padding: $spacing-md;
+    @include flex(column, flex-start, center, $gapMedium);
+}
+
+.page-content-main-container {
+    flex-grow: 1;
+    @include flex(column, flex-start, flex-start, $gapSmall);
+
+}
+
+.page-content-main {
+    backdrop-filter: blur(2px);
+    @extend %card;
+    padding: $spacing-md;
+    @include flex(column, flex-start, flex-start, $gapLarge);
+}
+
+.page-right {
+    width: 30%;
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    position: sticky;
+    top: 100px;
+}
+
+.content-titles {
+    width: 100%;
+    padding: 0;
+}
+
+.content-title-li {
+    padding: 0 $spacing-md;
+    margin: $spacing-sm 0;
+    line-height: 1.3;
+    max-width: 100%;
+    border-left: 2px solid var(--border);
+    color: var(--text-secondary);
+    @include ellipsis();
+
+    &.active {
+        color: var(--button-primary-text);
+        border-left: 2px solid var(--button-primary-text);
+        font-weight: bolder;
+    }
+}
+
+.page-progress-info {
+    @include flex(row, center, flex-start);
+}
+
+
+.page-progress {
+    @include flex(row, center, flex-start, ($gapLarge));
+    margin: auto $spacing-md;
+}
+
+.page-progress-2 {
+    @include flex(column, flex-start, flex-start, 2*$gapSmall);
+
+    h4 {
+        font-size: smaller;
+        font-weight: lighter;
+    }
+}
+
+.streak-text {
+    width: fit-content;
+}
+
+.article-tags {
+    @include flex(row, flex-start, center, $gapSmall);
+    flex-wrap: wrap;
+    font-size: smaller;
+}

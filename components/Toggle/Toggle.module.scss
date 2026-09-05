@@ -1,0 +1,48 @@
+@use "@/styles/index.scss" as *;
+
+.toggle-container-top {
+    width: 100%;
+}
+
+.toggle-container {
+    @include flex(row, space-between, center);
+}
+
+.toggle-button {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    width: 40px;
+    height: 24px;
+    border-radius: $radius-pill;
+    position: relative;
+    padding: 0;
+    transition: background-color 0.2s ease;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 1px auto 1px 1px;
+        height: calc(100% - 2px);
+        aspect-ratio: 1;
+        border: 1px solid var(--border-medium);
+        border-radius: 50%;
+        background-color: var(--glassmorphism-bg);
+        transition: transform 0.2s ease;
+    }
+
+    &.on {
+        background-color: var(--success);
+        border: 1px solid transparent;
+
+        &::before {
+            transform: translateX(16px);
+            background-color: var(--bg);
+            border: 1px solid transparent;
+        }
+    }
+}
+
+.toggle-container-label {
+    font-size: small;
+    max-width: 70%;
+}

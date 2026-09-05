@@ -1,0 +1,21 @@
+@use "@/styles/index.scss" as *;
+
+.SVGTextcontainer {
+    @include flex(row, space-between, center, $gapSmall);
+    color: inherit;
+    font-size: inherit;
+}
+
+.text {
+    transform: translateY(1px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.circularImage {
+    border-radius: 50%;
+
+    img {
+        border-radius: 50%;
+    }
+}

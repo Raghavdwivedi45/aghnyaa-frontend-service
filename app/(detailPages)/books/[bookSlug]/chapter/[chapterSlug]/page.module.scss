@@ -1,0 +1,5 @@
+@use "@/styles/index.scss" as *;
+
+.chapter-container {
+    @include flex(row, center, flex-start, $gapMedium);
+}

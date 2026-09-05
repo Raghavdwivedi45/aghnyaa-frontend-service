@@ -1,0 +1,214 @@
+@use "@/styles/index.scss" as *;
+
+%card {
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    background-color: var(--glassmorphism-bg);
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    box-shadow: var(--shadow-md);
+    padding: $spacing-md;
+}
+
+.videos-preview-container {
+    @include flex(row, space-between, flex-start, $gapMedium);
+
+    >div.preview-container-shrinked,
+    >div.preview-container-opened {
+        @extend %card;
+    }
+}
+
+.videos-container-opened {
+    width: calc(100% - 16px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $gapMedium;
+    justify-items: center;
+}
+
+.videos-container-shrinked {
+    width: 50%;
+    @include flex(column, flex-start, center, $gapMedium);
+}
+
+.preview-container-shrinked {
+    width: (16px + 2*16px); // 16px for padding and 16px for the width of the icon
+}
+
+.preview-container-opened {
+    width: 50%;
+    height: 70vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 25%;
+
+    @include scrollbar($track: transparent);
+}
+
+.preview-top-icons {
+    width: 100%;
+    @include flex(row, flex-end, center);
+}
+
+
+
+
+
+/*Video Card*/
+
+.video-card {
+    width: 100%;
+    // height: 300px;
+    aspect-ratio: 16/9;
+    @include flex(column, flex-start, flex-start, $gapSmall);
+}
+
+
+.video-card-preview {
+    height: 80%;
+    width: 100%;
+}
+
+.video-card-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-md;
+}
+
+.video-card-playback {
+    @include overlay(0.25);
+    position: absolute;
+    border-radius: inherit;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    @include flex();
+    // display: none;
+}
+
+.video-card-icon-span {
+    background-color: #FFF;
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    filter: blur(1px);
+}
+
+.video-card-bottom-icons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    padding: $spacing-md;
+    color: var(--text-tertiary);
+    @include flex(row, space-between, center, $gapMedium);
+}
+
+.video-card-bottom-left {
+    @include flex(row, flex-start, center, $gapSmall);
+
+    .video-card-bottom-icon {
+        width: 80px;
+        @include flex();
+    }
+}
+
+.video-card-bottom-right {
+    @include flex(row, flex-end, center, $gapMedium);
+
+    .video-card-bottom-icon {
+        width: 20px;
+        @include flex();
+    }
+}
+
+.video-card-top-right-tag {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    width: fit-content;
+    height: fit-content;
+    padding: $spacing-sm;
+    color: var(--text-tertiary);
+    background-color: var(--glassmorphism-bg-dark);
+    opacity: 0.6;
+    border-radius: $radius-md;
+    @include flex(row, flex-end, center, $gapMedium);
+}
+
+.video-card-top-left-author {
+    position: absolute;
+    top: $spacing-sm;
+    left: $spacing-sm;
+    width: fit-content;
+    height: fit-content;
+    padding: $spacing-sm;
+    color: var(--text-tertiary);
+    opacity: 0.6;
+    border-radius: $radius-md;
+    @include flex(row, flex-end, center, $gapMedium);
+}
+
+.video-player-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.video-meta-data {
+    width: 100%;
+    @include flex(row, flex-start, center, $gapMedium);
+    flex-wrap: wrap;
+}
+
+.creator-info-container {
+    width: 100%;
+    background-color: var(--glassmorphism-bg);
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    box-shadow: var(--shadow-md);
+    padding: $spacing-md;
+    @include flex();
+}
+
+.creator-img-div {
+    width: 25%;
+    height: 100%;
+    min-height: 100px;
+    @include flex(row, center, flex-start);
+}
+
+.creator-img {
+    width: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    position: relative;
+    border: 4px solid var(--border-light);
+}
+
+.creator-info {
+    width: 75%;
+    height: 100%;
+    @include flex(column, flex-start, flex-start, calc(3*$gapSmall));
+}
+
+.creator-name {
+    font-size: larger;
+}
+
+.creator-tags {
+    @include flex(row, flex-start, center, $gapSmall);
+    flex-wrap: wrap;
+
+}
+
+.creator-reach {
+    color: var(--text-secondary);
+}
+
+.creator-follow-button {
+    transform: translateX(-4px);
+}

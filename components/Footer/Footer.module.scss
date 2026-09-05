@@ -1,0 +1,103 @@
+@use "@/styles/index.scss" as *;
+
+.footer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-medium);
+    color: var(--text-secondary);
+    padding: $spacing-lg;
+    margin-top: calc($spacing-lg*2.5);
+
+    .footer-top {
+        max-width: 80%;
+        margin: 0 auto;
+        @include flex(row, space-between, flex-start, $gapLarge);
+
+        @include mobile {
+            max-width: 100%;
+            flex-direction: column;
+        }
+    }
+
+    .footer-brand {
+        @include flex(column, flex-start, flex-start, $gapMedium);
+        max-width: 320px;
+
+        .footer-brand-name {
+            color: var(--text);
+            font-size: $fontLarge;
+            font-weight: $fontBold;
+        }
+
+        .footer-tagline {
+            font-size: $fontSmall;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    }
+
+    .footer-socials {
+        @include flex(row, flex-start, center, $gapMedium);
+    }
+
+    .footer-social-link {
+        @include flex(row, center, center);
+        color: var(--text-secondary);
+        height: 40px;
+        width: 40px;
+        border-radius: $radius-pill;
+        background-color: var(--glassmorphism-bg);
+        border: 1px solid var(--border-light);
+        transition: color $button-transition, background-color $button-transition, transform $button-transition;
+
+        &:hover {
+            color: var(--text);
+            background-color: var(--bg);
+            transform: translateY(-2px);
+        }
+    }
+
+    .footer-links {
+        @include flex(row, flex-end, flex-start, $pageSectionGaps);
+        flex-wrap: wrap;
+
+        @include mobile {
+            justify-content: flex-start;
+            gap: $gapLarge $pageSectionGaps;
+        }
+    }
+
+    .footer-link-column {
+        @include flex(column, flex-start, flex-start, $spacing-sm);
+    }
+
+    .footer-link-heading {
+        color: var(--text);
+        font-size: $fontSmall;
+        font-weight: $fontMediumBold;
+        margin-bottom: $gapSmall;
+    }
+
+    .footer-link {
+        color: var(--text-secondary);
+        font-size: $fontSmall;
+        transition: color $button-transition;
+
+        &:hover {
+            color: var(--text);
+        }
+    }
+
+    .footer-bottom {
+        max-width: 80%;
+        margin: $spacing-lg auto 0;
+        padding-top: $spacing-lg;
+        border-top: 1px solid var(--border-light);
+        @include flex(row, center, center);
+        font-size: $fontSmall;
+        color: var(--text-muted);
+
+        @include mobile {
+            max-width: 100%;
+        }
+    }
+}

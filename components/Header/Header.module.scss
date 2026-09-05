@@ -1,0 +1,44 @@
+@use '@/styles/index.scss' as *;
+
+div.header-fixed-container {
+    position: fixed;
+    inset: 16px -4px 0 0;
+    padding: 16px;
+    background-color: var(--glassmorphism-bg);
+    border: 1px solid var(--glassmorphism-bg);
+    font-size: $fontMedium;
+    // backdrop-filter: blur(10px);
+    max-width: 80%;
+    margin: 0 auto;
+    max-height: fit-content;
+    border-radius: $radius-md;
+    z-index: 999;
+    @include flex(row, space-between, center);
+
+    div.header-fixed-container-left {
+        @include flex(row, center, center);
+        color: var(--text);
+        font-size: $fontMedium;
+        font-weight: $fontBold;
+    }
+
+    div.header-fixed-container-mid {
+        @include flex(row, center, center, $gapMedium);
+        font-size: $fontSmall;
+        font-weight: $fontMediumBold;
+    }
+
+    div.header-nav-link a {
+        color: var(--text-secondary);
+        // opacity: 0.7;
+
+        &:hover {
+            color: var(--text);
+            // opacity: 1;
+        }
+    }
+
+    .header-fixed-container-right {
+        @include flex(row, center, center, $gapMedium);
+    }
+}

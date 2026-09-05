@@ -1,0 +1,17 @@
+@use "@/styles/index.scss" as *;
+
+.card-container {
+    background-color: var(--glassmorphism-bg);
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    width: 100%;
+    @include flex(column, flex-start, flex-start, $gapMedium);
+}
+
+.card-child-container {
+    max-height: 20vh;
+    overflow-y: auto;
+    width: 100%;
+
+    @include scrollbar($thumb: var(--border-subtle), $track: var(--border-hover));
+}
