@@ -1,0 +1,98 @@
+// Theme-related variables or CSS custom properties.
+
+:root {
+    /* Backgrounds */
+    --bg: #f7efec;
+    --bg-secondary: #ead6cf;
+    --bg-tertiary: #dfc0b6;
+    --glassmorphism-bg: rgba(255, 255, 255, 0.5);
+    --glassmorphism-bg-dark: rgba(0, 0, 0, 0.5);
+
+    /* Text */
+    --text: #6A4A3D; /* Primary body text */
+    --text-secondary: #8A6C61; /* Metadata, secondary paragraphs */
+    --text-tertiary: #FDF8F3; /* Text on dark/accent backgrounds */
+    --text-muted: #AD978D; /* Captions, timestamps, disabled text */
+
+    /* Borders */
+    --border: #ebaa90;
+    --border-light: #f7d9cf;
+    --border-medium: #f2c4b2;
+    --border-subtle: #8b807d;
+    --border-inverse: rgba(255, 255, 255, 0.7);
+
+    --bg-hover: #f1e4df;
+    --bg-secondary-hover: #dfc2b8;
+    --bg-tertiary-hover: #d2a89a;
+    --glassmorphism-bg-hover: rgba(255, 255, 255, 0.72);
+    --glassmorphism-bg-dark-hover: rgba(0, 0, 0, 0.62);
+    --border-hover: #f1e6ee;
+
+    /* Status */
+    --success: #2ab45c;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+
+    /* Components */
+    --card-bg: #F8DFD8;
+
+    /* Shadows */
+    --shadow-sm: 0 8px 24px rgba(94, 57, 28, 0.1);
+    --shadow-md: 0 8px 24px rgba(94, 57, 28, 0.2);;
+
+    /* Buttons */
+    --button-primary-text: #9f3f31;
+    --button-primary-bg: linear-gradient(to bottom, #fffdf9, #f8efe4);
+    --button-primary-bg-hover: linear-gradient(to bottom, #ffffff, #f4e8d7);
+
+    --button-secondary-text: #43342b;
+    --button-secondary-text-hover: #9f3f31;
+    --button-secondary-bg: rgba(255, 250, 244, 0.55);
+    --button-secondary-bg-hover: rgba(255, 250, 244, 0.95);
+
+    --button-border: rgba(213, 171, 103, 0.55);
+    --button-border-strong: rgba(213, 171, 103, 0.65);
+
+    --button-shadow: 0 4px 12px rgba(94, 57, 28, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    --button-shadow-hover: 0 10px 24px rgba(94, 57, 28, 0.12);
+    --button-shadow-secondary: 0 4px 12px rgba(94, 57, 28, 0.05);
+    --button-shadow-secondary-hover: 0 10px 24px rgba(94, 57, 28, 0.1);
+    --button-focus-ring: 0 0 0 4px rgba(163, 61, 47, 0.15);
+
+    /* scroll bar */
+    --scroll-bg: #b85a47;
+    --scroll-bg-secondary: #f1c4bb;
+
+    --pagination-active: #E28E77;
+
+    /* Headings */
+    --h1-color: #4B3027; // Hero titles only
+    --h2-color: #493329; // Section titles
+    --h3-color: #66473a; // Cards & subsections
+    --h4-color: #7b5949; // Smaller headings
+    --h5-color: #94705e; //Metadata headings
+    --h6-color: #ad8a79; // Captions
+}
+
+[data-theme='dark'] {
+    --bg: #111827;
+    --text: #ffffff;
+}
+
+[data-theme='dark'] {
+    --bg: #111;
+    --text: #fff;
+    --primary: #60a5fa;
+}
+
+[data-theme='modern'] {
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --primary: #8b5cf6;
+}
+
+/*
+    What is [data-theme='dark']? - This is an attribute selector. <html data-theme="dark">
+    Suppose you fetch the user - const user = await getUser();
+    <html data-theme={user.theme}>
+*/

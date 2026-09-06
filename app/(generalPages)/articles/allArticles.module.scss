@@ -1,0 +1,30 @@
+@use "@/styles/index.scss" as *;
+
+.articles-container {
+    @include flex(row, space-between, flex-start);
+}
+
+.articles-content {
+    height: 100%;
+    width: 70%;
+    min-height: 500px;
+    padding: $spacing-lg;
+    @include flex(column, flex-start, flex-start, $gapLarge)
+}
+
+.articles-notifications {
+    width: 30%;
+    padding: $spacing-md;
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+}
+
+.articles-count {
+    font-size: 0.8*$fontSmall;
+    color: var(--text-secondary);
+}
+
+.articles-empty-container {
+    
+}

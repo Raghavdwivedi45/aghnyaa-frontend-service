@@ -1,0 +1,44 @@
+@use "@/styles/index.scss" as *;
+
+section.hero-section-1 {
+    @include flex(column, center, center, calc($gapLarge*2));
+    width: 80vw;
+    height: calc(100vh - 120px);
+    max-height: 700px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(2px);
+    border-radius: $radius-sm;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--border);
+        opacity: 0.2;
+        pointer-events: none;
+    }
+}
+
+div.top-intro {
+
+    h2,
+    p {
+        text-align: center;
+    }
+}
+
+ul.hero-stats {
+    @include flex(row, center, center, $gapLarge);
+    list-style: none;
+    font-size: $fontMedium;
+    font-weight: $fontMediumBold;
+
+    li {
+        @include flex(row, center, center, $gapMedium);
+        border: 1px solid var(--border);
+        padding: $spacing-sm;
+        border-radius: $radius-sm;
+    }
+}

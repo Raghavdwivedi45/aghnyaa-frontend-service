@@ -1,0 +1,21 @@
+@use "@/styles/index.scss" as *;
+
+.article-info {
+    border-collapse: collapse;
+}
+
+.article-info th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    padding-bottom: $spacing-sm;
+    padding-left: $spacing-sm;
+    @include ellipsis();
+}
+
+.article-info td {
+    padding-bottom: $spacing-sm;
+    padding-left: $spacing-sm;
+    color: var(--text-secondary);
+}

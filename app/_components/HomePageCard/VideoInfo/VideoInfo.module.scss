@@ -1,0 +1,18 @@
+@use "@/styles/index.scss" as *;
+
+.playerContainer {
+    width: 100%;
+    @include flex(row, center, center, $gapLarge);
+}
+
+.player {
+    position: relative;
+    width: 60%;
+    aspect-ratio: 16 / 9;
+    border-radius: $radius-sm;
+    overflow: hidden;
+}
+
+.navButtonPrev {
+    transform: rotateY(180deg);
+}

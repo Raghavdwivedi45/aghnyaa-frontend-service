@@ -1,0 +1,57 @@
+@use "@/styles/index.scss" as *;
+
+.new-article-top {
+    @include flex(row, space-between, center);
+}
+
+.new-article-mid {
+    @include flex(row, space-between, flex-start, $gapLarge);
+}
+
+%card {
+    padding: $spacing-md;
+    border: 1px solid var(--border-light);
+    border-radius: $radius-md;
+    // any way to give each direct child a gap ? but something other than flex direction column ? -> CSS Grid (recommended if you don't need Flexbox)
+    display: grid;
+    gap: $spacing-md;
+}
+
+.new-article-mid-left {
+    width: 70%;
+    @extend %card;
+}
+
+.new-article-mid-right {
+    width: 30%;
+    @extend %card;
+}
+
+.right-divider {
+    width: 100%;
+    border-color: var(--border-light);
+    opacity: 0.6;
+}
+
+.right-title {
+    color: var(--text);
+}
+
+.writing-tips-container {
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    background-color: var(--bg);
+    padding: $spacing-md;
+}
+
+.writing-tips-head {
+    width: 100%;
+    @include flex(row, flex-start, center, $gapSmall);
+}
+
+.writing-tips-list {
+    padding: 0;
+    list-style-position: inside;
+    padding: $spacing-sm;
+    color: var(--button-secondary-text);
+}

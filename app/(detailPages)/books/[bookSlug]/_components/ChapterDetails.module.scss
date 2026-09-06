@@ -1,0 +1,50 @@
+@use "@/styles/index.scss" as *;
+
+.chapter-details-container {
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    width: 80%;
+    list-style: none;
+    padding: 0;
+    margin: $spacing-lg auto 0;
+
+}
+
+.chapter-details {
+    padding: $spacing-md;
+    background-color: var(--glassmorphism-bg);
+    width: 100%;
+    border-radius: $radius-md;
+    @include flex(row, space-between, center, $gapSmall);
+}
+
+.left-chapter-number,
+.action-button {
+    width: 10%;
+    @include flex();
+}
+
+.left-chapter-number {
+    color: var(--button-primary-text);
+    font-size: $fontLarge;
+}
+
+.chapter-detail {
+    width: 80%;
+    padding: 0 $spacing-lg;
+    font-size: larger;
+    color: var(--text-secondary);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    @include flex(row, space-between, center, $gapSmall);
+}
+
+.action-button-circumference {
+    padding: 0.5*$spacing-sm;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    @include flex();
+}
+
+.verse-count {
+    font-size: smaller;
+}

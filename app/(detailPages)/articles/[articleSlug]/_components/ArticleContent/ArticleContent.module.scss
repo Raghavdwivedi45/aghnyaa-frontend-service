@@ -1,0 +1,114 @@
+@use "@/styles/index.scss" as *;
+
+.article-container {
+    @include flex(column, flex-start, flex-start, $gapMedium);
+
+    p {
+        color: var(--text);
+    }
+
+    p.content-shloka {
+        font-family: var(--font-sanskrit);
+        font-weight: bolder;
+        font-size: larger;
+        text-align: center;
+        width: 100%;
+    }
+
+    h2, h3, h4, h5, h6 {
+        padding: 0 $spacing-sm;
+        border-left: 3px solid var(--border);
+    }
+}
+
+p.hero-subtitle {
+    color: var(--text-secondary);
+}
+
+.content-metadata {
+    @include flex(row, space-between, center);
+    width: 100%;
+    padding: $spacing-md;
+}
+
+.user-info {
+    @include flex(row, flex-start, center, $gapMedium);
+    font-size: $fontVSmall;
+}
+
+.user-img-left {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.user-right {
+    @include flex(column, flex-start, flex-start);
+}
+
+.content-reactions {
+    @include flex(row, flex-start, center, $gapMedium);
+}
+
+.article-thumbnail {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: $radius-md;
+    position: relative;
+}
+
+.figure {
+    width: 100%;
+    margin: 0;
+    @include flex(column, flex-start, center, $gapSmall);
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: $radius-md;
+}
+
+.imageWrapperSmall {
+    position: relative;
+    width: 60%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: $radius-md;
+}
+
+.caption {
+    text-align: center;
+    font-size: smaller;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.verseFigure, .sanskritVerse {
+    width: 100%;
+    margin: 0;
+}
+
+.verseFigure {
+    border-left: 2px solid var(--border);
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-sm;
+    background-color: var(--bg);
+}
+
+.content-shloka, .translation {
+    width: 100%;
+    margin: 0 0 $spacing-md;
+}
+
+.reference-source {
+    color: var(--text-muted);
+}
+
+.hero-edit-button {
+    width: 100%;
+    @include flex(row, flex-end, center);
+}

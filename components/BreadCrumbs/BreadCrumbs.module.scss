@@ -1,0 +1,13 @@
+@use "@/styles/index.scss" as *;
+
+.page-breadcrumbs {
+    @include flex(row, flex-start, center, $gapSmall);
+    padding: $spacing-sm;
+    background: linear-gradient(to right, rgb(234, 214, 207, 1) 0%, rgb(234, 214, 207, 0.5) 25%,rgb(234, 214, 207, 1) 100%);
+    opacity: 0.8;
+    border-radius: $radius-md;
+    width: fit-content;
+    color: var(--button-primary-text);
+    font-size: small;
+    font-weight: bolder;
+}

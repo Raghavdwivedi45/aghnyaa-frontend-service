@@ -1,0 +1,89 @@
+@use "@/styles/index.scss" as *;
+
+.carouselWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.premiumCard {
+  width: 35vw;
+  height: 70vh;
+  max-height: 600px;
+  border-radius: $radius-md;
+  border: 1px solid var(--border-light);
+  padding: $spacing-lg;
+  background-color: var(--bg-secondary);
+  @include flex(column, space-between, flex-start, $gapMedium);
+  box-shadow: var(--shadow-md);
+}
+
+.mainContent {
+  height: calc(100% - 175px);
+  @include flex(column, flex-start, flex-start, $gapLarge);
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  width: 100%;
+}
+
+.textDetails {
+  @include flex(column, flex-start, flex-start, calc(2.5*$gapSmall));
+  max-height: calc(100% - 135px);
+}
+
+.giantTitle {
+  font-size: $fontVLarge;
+  color: var(--text);
+  width: 100%;
+  @include ellipsis();
+
+}
+
+.authorText {
+  font-size: $fontMedium;
+  font-weight: $fontBold;
+  color: var(--text-secondary);
+}
+
+.descriptionText {
+  font-size: $fontSmall;
+  color: var(--text-muted);
+  max-height: 75%;
+  overflow-y: auto;
+
+  @include scrollbar;
+}
+
+.thumbnailArea {
+  @include flex(row, flex-start, center, $gapMedium);
+}
+
+.progressContainer {
+  @include flex(row, space-between, center, $gapMedium);
+  width: 100%;
+}
+
+.progressBar {
+  height: 4px;
+  flex-grow: 1;
+  background: var(--border-subtle);
+  border-radius: $radius-sm;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  &.active {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: var(--border);
+      animation: fillProgress 4s linear forwards;
+    }
+  }
+}

@@ -1,0 +1,180 @@
+@use "@/styles/index.scss" as *;
+
+.input-container,
+.input-container-active {
+    background-color: var(--bg);
+    border-radius: $radius-md;
+    padding: 0 $spacing-sm;
+    opacity: 0.6;
+    border: 1px solid var(--border-light);
+    transition: all 0.1s ease-in-out;
+    @include flex();
+}
+
+.input-container-active {
+    border: 1px solid var(--border);
+    opacity: 1;
+    position: relative;
+}
+
+.input-box {
+    flex: 1;
+    outline: none;
+    border: none;
+    padding: $spacing-sm;
+    background-color: transparent;
+
+    &::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+}
+
+.label {
+    opacity: 0.6;
+    transition: all 0.1s ease-in-out;
+}
+
+.label-active {
+    opacity: 1;
+}
+
+.necessary-mark {
+    color: var(--danger);
+}
+
+.character-count {
+    font-size: smaller;
+    text-align: right;
+    width: 100%;
+}
+
+.file-handle-container {
+    color: inherit;
+    padding: $spacing-sm;
+    border: 1px dashed var(--border-light);
+    background-color: var(--bg);
+    border-radius: $radius-md;
+    opacity: 0.6;
+    position: relative;
+
+    >h5,
+    h6 {
+        text-align: center;
+    }
+}
+
+.file-handle-img {
+    width: 100%;
+    padding: $spacing-sm;
+    @include flex();
+}
+
+.tag-container {
+    display: grid;
+    gap: $spacing-md;
+}
+
+.tags-all {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    @include flex(row, flex-start, center, $gapMedium);
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.5*$spacing-sm;
+    border-radius: $radius-md;
+    background-color: var(--glassmorphism-bg);
+    width: fit-content;
+    color: var(--text);
+    cursor: pointer;
+    @include flex(row, center, center, $gapSmall);
+}
+
+
+.dropzone {
+    border: 2px dashed #bbb;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dropzone-dragging {
+    @extend .file-handle-container;
+    opacity: 1;
+}
+
+.uploaded-img-link {
+    color: var(--text-muted);
+    font-size: smaller;
+}
+
+.today {
+    border: 1px solid var(--border);
+}
+
+.calendar {
+    position: absolute;
+    width: 320px;
+    padding: $spacing-md;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: $radius-md;
+    box-shadow: var(--shadow-sm);
+    transform: scale(0.8);
+    transform-origin: center left;
+}
+
+.calendarHeader {
+    @include flex(row, space-between, center);
+    margin-bottom: $spacing-md;
+}
+
+.calendarHeader button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.weekdays,
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+    margin-bottom: $spacing-sm;
+}
+
+.weekdays span {
+    text-align: center;
+    font-size: $fontVSmall;
+    font-weight: $fontMediumBold;
+}
+
+.days button {
+    width: 36px;
+    height: 36px;
+    margin: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--bg-hover);
+    }
+}
+
+.days button.selected {
+    background: var(--bg-secondary);
+    color: var(--text);
+    font-weight: $fontMediumBold;
+}
+
+.label-title {
+    color: var(--text);
+}

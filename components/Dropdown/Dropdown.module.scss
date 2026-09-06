@@ -1,0 +1,74 @@
+@use "@/styles/index.scss" as *;
+
+%template {
+    background-color: var(--bg);
+    border-radius: $radius-md;
+    border: 1px solid var(--border-light);
+}
+
+.dropdown-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: inherit;
+}
+
+.dropdown-content {
+    padding: $spacing-sm;
+    opacity: 0.6;
+    transition: all 0.1s ease-in-out;
+    @extend %template;
+    @include flex(row, space-between, center, $spacing-sm);
+}
+
+.dropdown-list {
+    // Why fixed? -> absolute -> parent moves -> menu doesn't know -> position: fixed -> Viewport coordinates -> Exactly what getBoundingClientRect() returns.
+    position: fixed;
+    @extend %template;
+    z-index: 999;
+    list-style: none;
+    padding: 0;
+    overflow-x: hidden;
+    @include scrollbar($track: var(--bg-secondary));
+    max-height: 200px;
+    overflow-y: auto;
+    color: inherit;
+}
+
+.dropdown-item {
+    padding: 0.5*$spacing-sm $spacing-sm;
+    @include ellipsis();
+
+    &:hover {
+        background-color: var(--glassmorphism-bg);
+    }
+}
+
+.tags-all {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin-top: $spacing-sm;
+    @include flex(row, flex-start, center, $gapMedium);
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.5*$spacing-sm;
+    border-radius: $radius-md;
+    background-color: var(--glassmorphism-bg);
+    width: fit-content;
+    color: var(--text);
+    cursor: pointer;
+    @include flex(row, center, center, $gapSmall);
+}
+
+.dropdown-item-active {
+    padding: 0.5*$spacing-sm $spacing-sm;
+    background-color: var(--glassmorphism-bg);
+    @include ellipsis();
+}
+
+.dropdown-name {
+    @include flex(row, flex-start, center, $gapSmall);
+}

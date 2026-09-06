@@ -1,0 +1,57 @@
+@use "@/styles/index.scss" as *;
+
+.sidebar-container {
+    background-color: var(--bg);
+    border: 1px solid var(--border-light);
+    border-radius: $radius-sm;
+    width: 100%;
+    min-height: 36px;
+    padding: 16px;
+    transition: height 0.5s ease-in-out;
+    position: relative;
+
+    &.closed {
+        height: 0;
+
+        * {
+            display: none;
+        }
+
+        .opener-thread,
+        .opener-thread * {
+            display: block;
+        }
+    }
+
+    &.opened {
+        height: 25vh;
+    }
+}
+
+.opener-thread {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translateY(-7px);
+}
+
+.inner-sidebar-content {
+    background-color: var(--bg);
+    width: 100%;
+    height: 100%;
+    padding: 0 8px;
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: $gapMedium;
+
+    @include scrollbar($thumb: var(--scroll-bg));
+}
+
+.kaba {
+    background-color: #00f;
+    width: 20px;
+    height: 50px;
+    margin: 20px;
+}

@@ -1,0 +1,110 @@
+@use "@/styles/index.scss" as *;
+
+.carouselWrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.premiumCard {
+    width: 30vw;
+    height: 70vh;
+    border-radius: $radius-md;
+    border: 1px solid var(--border-light);
+    background-color: var(--bg-secondary);
+    @include flex(column, space-between, flex-start, $gapMedium);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.cardHeader {
+    position: absolute;
+    top: $spacing-md;
+    left: $spacing-md;
+    z-index: 2;
+}
+
+.mainContent {
+    height: 85%;
+    width: 100%;
+    @include flex(column, flex-start, flex-start, $gapMedium)
+}
+
+.imageWrapper {
+    position: relative;
+    height: 65%;
+    width: 100%;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        @include overlay(0.3);
+    }
+
+    img.image {
+        border-radius: $radius-md $radius-md 0 0;
+    }
+}
+
+
+.giantTitle {
+  font-size: $fontVLarge;
+    color: var(--text);
+    width: 100%;
+    padding: 0 $spacing-md;
+    max-width: 100%;
+    @include ellipsis();
+}
+
+.thumbnailArea {
+    height: 10%;
+    width: 100%;
+    position: relative;
+    padding: $spacing-sm $spacing-md;
+    @include flex(row, space-between, center, $gapMedium);
+
+    &::before {
+        content: "";
+        width: 90%;
+        margin: 0 auto;
+        position: absolute;
+        border-top: 1px solid var(--border);
+        inset: 0;
+    }
+}
+
+.progressContainer {
+    @include flex(row, space-between, center, $gapMedium);
+    width: 100%;
+    height: 5%;
+    padding: $spacing-md;
+}
+
+.progressBar {
+    height: 4px;
+    flex-grow: 1;
+    background: var(--border-subtle);
+    border-radius: $radius-sm;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    &.active {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--border);
+            animation: fillProgress 4s linear forwards;
+        }
+    }
+}

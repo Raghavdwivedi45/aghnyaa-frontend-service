@@ -1,0 +1,73 @@
+@use "@/styles/index.scss" as *;
+
+.extras-container {
+    @include flex(column, flex-start, center, $gapLarge);
+    width: 100%;
+}
+
+%card {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid var(--border);
+    border-radius: $radius-lg;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+.card-container {
+    @include flex(column, flex-start, flex-start, $gapSmall);
+    @extend %card;
+}
+
+.topic-count-pair {
+    width: 100%;
+    @include flex(row, space-between, center, $gapMedium);
+}
+
+.topic-name {
+    max-width: 70%;
+    @include ellipsis();
+}
+
+.topic-count {
+    padding: calc(0.5*$spacing-sm) calc(1.5*$spacing-sm);
+    border-radius: $radius-lg;
+    border: 1px solid var(--border);
+}
+
+.card-container-2 {
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    @extend %card;
+}
+
+.trending-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.trending-card {
+    @include flex(row, space-between, center, 2*$gapSmall);
+    width: 100%;
+}
+
+.trending-card-img {
+    position: relative;
+    width: 20%;
+    aspect-ratio: 16 / 9;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+
+    img {
+        border-radius: $radius-sm;
+        object-fit: cover;
+    }
+}
+
+.trending-card-title {
+    width: 80%;
+    min-width: 0;
+    overflow: hidden;
+    @include ellipsis();
+}

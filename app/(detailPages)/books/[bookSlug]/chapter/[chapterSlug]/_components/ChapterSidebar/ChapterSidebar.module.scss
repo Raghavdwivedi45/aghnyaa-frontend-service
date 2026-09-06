@@ -1,0 +1,44 @@
+@use "@/styles/index.scss" as *;
+
+.chapter-toolbar {
+    width: 25%;
+    height: 75vh    ;
+    border-radius: $radius-md;
+    box-shadow: var(--shadow-sm);
+    background-color: var(--bg);
+    overflow: hidden;
+    @include flex();
+    position: sticky;
+    top: 15vh;
+}
+
+.sidebar-options {
+    border-right: 1px solid var(--border);
+    height: 100%;
+}
+
+.sidebar-contents {
+    padding: $spacing-md;
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    @include flex(column, flex-start, flex-start, $gapMedium);
+    @include scrollbar();
+}
+
+.sidebar-left-icon, .sidebar-left-icon-active {
+    padding: $spacing-sm;
+}
+
+.sidebar-left-icon {
+    opacity: 0.3;
+    transition: opacity 0.1s ease-in;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.sidebar-left-icon-active {
+    background-color: var(--glassmorphism-bg);
+}

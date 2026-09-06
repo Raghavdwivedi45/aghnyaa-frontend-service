@@ -1,0 +1,9 @@
+@use "@/styles/index.scss" as *;
+
+.new-article-container {
+    background-color: var(--glassmorphism-bg);
+    width: 100%;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    @include flex(column, flex-start, stretch, 1.5*$gapLarge);
+}

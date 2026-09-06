@@ -1,0 +1,63 @@
+@use "@/styles/index.scss" as *;
+
+@keyframes toaster-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes toaster-slide-out {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+}
+
+%toaster {
+    margin: $spacing-sm auto;
+    font-weight: bold;
+    padding: $spacing-sm;
+    border-radius: $radius-sm;
+    max-width: fit-content;
+    max-height: fit-content;
+    color: var(--text-tertiary);
+    @include flex(row, center, center, $gapSmall);
+    animation: toaster-slide-in 0.25s ease-out;
+}
+
+.toaster-leaving {
+    animation: toaster-slide-out 0.25s ease-in forwards;
+}
+
+.toaster-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    padding: $spacing-md;
+    list-style: none;
+    pointer-events: none;
+    z-index: 1000;
+
+    * {
+        pointer-events: all;
+    }
+}
+
+.toaster-success-msg {
+    background-color: var(--success);
+    @extend %toaster;
+}
+
+.toaster-error-msg {
+    background-color: var(--danger);
+    @extend %toaster;
+}

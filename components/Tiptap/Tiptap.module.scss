@@ -1,0 +1,191 @@
+@use "@/styles/index.scss" as *;
+
+.editor-container {
+    background-color: var(--glassmorphism-bg);
+    padding: $spacing-sm;
+    border: 1px solid transparent;
+    border-radius: $radius-md;
+    color: var(--text);
+
+    &:focus-within {
+        border: 1px solid var(--border-light);
+        box-shadow: var(--shadow-sm);
+    }
+
+    iframe {
+        margin: $spacing-sm auto;
+        display: block;
+    }
+
+    [data-resize-container][data-node="image"] {
+        justify-content: center;
+    }
+
+    img:global(.article-img) {
+        display: block;
+        margin: 0 auto;
+    }
+
+    :global(.ProseMirror p.is-editor-empty:first-child::before) {
+        content: attr(data-placeholder);
+        color: var(--text-muted);
+        pointer-events: none;
+    }
+}
+
+.toolbar-container {
+    background-color: var(--bg);
+    padding: $spacing-sm;
+    margin-bottom: $spacing-sm;
+    border-radius: $radius-sm;
+}
+
+.toolbar-container-box-container {
+    @include flex(row, space-between, center, $gapMedium);
+    width: 100%;
+    margin-top: $spacing-sm;
+}
+
+.toolbar-container-character-count {
+    margin-top: $spacing-sm;
+    width: 100%;
+    font-size: small;
+    text-align: right;
+    color: var(--text-muted);
+}
+
+.toolbox-container-left {
+    @include flex(row, flex-start, center, $gapMedium);
+    flex-wrap: wrap;
+    flex: 1;
+
+    >button {
+        padding: 0;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.toolbox-container-right {
+    width: fit-content;
+    max-width: 25%;
+    @include flex(column, flex-start, center, $gapSmall);
+}
+
+
+// table styles
+// These class names are rendered by Tiptap/ProseMirror, not by the `styles`
+// object, so they must stay global instead of being hashed by CSS Modules.
+//
+// Two selectors are needed because `resizable: true` makes Tiptap hand its
+// TableView to prosemirror-tables' columnResizing plugin, which constructs it
+// without the HTMLAttributes argument — so `rich-table` never lands on the
+// table inside the live editor. It IS present in `editor.getHTML()` output,
+// since renderHTML applies it. `.tableWrapper` covers the editor, the class
+// covers the saved markup.
+:global(.tableWrapper)>table,
+:global(table.rich-table) {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    td,
+    th {
+        border: 1px solid red;
+        box-sizing: border-box;
+        min-width: 1em;
+        padding: 6px 8px;
+        position: relative;
+        vertical-align: top;
+
+        >* {
+            margin-bottom: 0;
+        }
+    }
+
+    th {
+        background-color: green;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    :global(.selectedCell):after {
+        background: blue;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 2;
+    }
+
+    :global(.column-resize-handle) {
+        background-color: black;
+        bottom: -2px;
+        pointer-events: none;
+        position: absolute;
+        right: -2px;
+        top: 0;
+        width: 4px;
+    }
+}
+
+:global(.tableWrapper) {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+}
+
+:global(.resize-cursor) {
+    cursor: ew-resize;
+    cursor: col-resize;
+}
+
+.toolbar-footer {
+    float: right;
+    margin-top: $spacing-sm;
+    @include flex(row, flex-end, center)
+}
+
+.toolbar-svg-button {
+    padding: $spacing-sm;
+    cursor: pointer;
+    position: relative;
+    border-radius: $radius-sm;
+
+    &:hover {
+        background-color: var(--bg-secondary);
+    }
+}
+
+.toolbar-svg-button-active {
+    background-color: var(--bg-secondary);
+}
+
+.toolbar-svg-button-title {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .15s ease-in;
+    white-space: nowrap;
+    pointer-events: none;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: $radius-sm;
+    padding: $spacing-sm;
+}
+
+.toolbar-svg-button:hover .toolbar-svg-button-title {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}

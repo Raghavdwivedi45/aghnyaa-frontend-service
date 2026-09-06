@@ -1,0 +1,103 @@
+@use "@/styles/index.scss" as *;
+
+.book-index-container {
+    width: 100%;
+    @include flex(column, flex-start, flex-start, $gapSmall);
+}
+
+.book-img-top-info {
+    width: 100%;
+    padding: $spacing-lg;
+    z-index: 3;
+    @include flex(row, space-between, flex-start, $gapLarge);
+    flex-wrap: wrap;
+}
+
+.book-img {
+    width: 40%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border-radius: $radius-sm;
+    overflow: hidden;
+}
+
+.divider-div {
+    width: 100%;
+    background: none;
+    z-index: 1;
+}
+
+.book-info {
+    flex: 1;
+    @include flex(column, center, flex-start, $gapMedium);
+}
+
+.book-title {
+    font-size: $fontVLarge;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.book-title-sanskrit {
+    font-family: var(--font-sanskrit);
+    font-size: $fontLarge;
+    font-weight: 500;
+    color: var(--button-primary-text);
+}
+
+.book-description {
+    color: var(--text-secondary);
+}
+
+.book-stats {
+    width: 100%;
+    padding: $spacing-md 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    @include flex(row, flex-start, flex-start, calc(2*$gapLarge));
+}
+
+.book-stat {
+    color: var(--text-secondary);
+    @include flex(column, center, center, $gapSmall);
+}
+
+.book-stat-label {
+    color: var(--text-muted);
+    font-size: $fontVSmall
+}
+
+.book-actions {
+    @include flex(row, space-between, center, $gapLarge);
+    width: 100%;
+}
+
+.book-quick-actions {
+    @include flex(row, flex-start, center, $gapMedium);
+}
+
+.book-actions-button {
+    width: fit-content;
+}
+
+.book-chapters-container {
+    width: 100%;
+    margin: $pageSectionGaps 0;
+}
+
+.book-chapters-heading {
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--button-primary-text);
+}
+
+.book-chapters-subheading {
+    text-align: center;
+    color: var(--text-secondary);;
+}
+
+.chapter-comments {
+    width: 80%;
+    margin: 0 auto;
+    @include flex();
+}
