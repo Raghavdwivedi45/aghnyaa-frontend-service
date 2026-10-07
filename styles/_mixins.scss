@@ -51,7 +51,12 @@
   text-overflow: ellipsis;
 }
 
-@mixin scrollbar($thumb: var(--scroll-bg-secondary), $track: var(--button-primary-bg), $width: 4px, $radius: 4px) {
+@mixin scrollbar(
+  $thumb: var(--scroll-bg-secondary),
+  $track: var(--button-primary-bg),
+  $width: 4px,
+  $radius: 4px
+) {
   &::-webkit-scrollbar {
     width: $width;
   }

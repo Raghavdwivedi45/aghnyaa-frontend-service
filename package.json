@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.104.0",
     "@tiptap/extension-file-handler": "^3.29.0",
     "@tiptap/extension-highlight": "^3.29.0",
     "@tiptap/extension-image": "^3.29.0",

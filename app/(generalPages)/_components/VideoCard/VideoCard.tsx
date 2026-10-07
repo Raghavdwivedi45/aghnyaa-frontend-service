@@ -1,10 +1,8 @@
 import React from 'react';
-import styles from "./VideoCard.module.scss";
+import styles from './VideoCard.module.scss';
 
 const VideoCard = () => {
-  return (
-    <div className=''>VideoCard</div>
-  )
-}
+  return <div className="">VideoCard</div>;
+};
 
-export default VideoCard
+export default VideoCard;

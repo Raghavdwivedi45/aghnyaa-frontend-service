@@ -1,42 +1,32 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { IUserInfo } from "@/constants/interfaces";
-import { AuthContext } from "@/contexts/AuthContext";
-import { usePathname, useRouter } from "next/navigation";
-import { URLGenerator } from "@/utils/helperFunctions";
-import { fetchGET, fetchPOST } from "@/utils/fetchAPIFunctions";
+import { useEffect } from 'react';
+import { AuthContext } from '@/contexts/AuthContext';
+import { usePathname, useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { initializeAuth } from '@/utils/userAPIs.client';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<IUserInfo | null>(null);
-    const router = useRouter();
-    const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
 
-    const fetchUser = async () => {
-        const { data, status } = await fetchGET<IUserInfo>(URLGenerator("USER", "/protected/v1/auth/user-info"));
-        if (status === 401 || status === 429) {
-            const { data: data2, status } = await fetchPOST<IUserInfo>(URLGenerator("USER", "/v1/auth/refresh-token"));
-            if (status === 200 && data2) {
-                setUser(data2);
-            }
-        }
-        if (data) {
-            setUser(data)
-        }
-    };
+  //  const { data: user, isPending, isError } = useQuery({
+  const { data: user, isPending } = useQuery({
+    queryKey: ['auth'],
+    queryFn: initializeAuth,
+    staleTime: 5 * 60 * 1000, // Don't repeatedly check authentication on every mount
+    refetchOnWindowFocus: false, // Don't automatically refetch when browser window gets focus
+  });
 
-    useEffect(() => {
-        if (!user) {
-            fetchUser();
-        }
-        if (user && pathname === "/signup") {
-            router.replace("/");
-        }
-    }, [user, pathname, router])
+  useEffect(() => {
+    if (user && pathname === '/signup') {
+      router.replace('/');
+    }
+  }, [user, pathname, router]);
 
-    return (
-        <AuthContext.Provider value={{ user, setUser }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={{ user: user || null, isPending }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

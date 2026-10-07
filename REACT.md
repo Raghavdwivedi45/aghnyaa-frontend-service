@@ -3,6 +3,7 @@
 ## What is it?
 
 A browser API that **watches an element's size** and notifies you whenever its width or height changes.
+
 > Think: **"Call me whenever this element is resized."**
 
 CSS **can't animate**:
@@ -13,6 +14,7 @@ height: auto;
 ```
 
 So we:
+
 1. Measure the content's height.
 2. Store it in state.
 3. Animate the wrapper from `0px` to that height.
@@ -20,10 +22,13 @@ So we:
 If the content changes later (API data, images, etc.), `ResizeObserver` automatically updates the height.
 
 ---
+
 ## Basic Flow
+
 ```
 Content -> ResizeObserver -> Height changes -> Update state -> Smooth height transition
 ```
+
 ---
 
 ## Essential Code
@@ -48,37 +53,27 @@ useEffect(() => {
 ```tsx
 <div
   style={{
-    height: isOpen ? `${height}px` : "0px",
-    overflow: "hidden",
-    transition: "height 300ms ease",
+    height: isOpen ? `${height}px` : '0px',
+    overflow: 'hidden',
+    transition: 'height 300ms ease',
   }}
 >
-  <div ref={contentRef}>
-    ...
-  </div>
+  <div ref={contentRef}>...</div>
 </div>
 ```
 
 ---
+
 ## When to use it?
+
 ✅ Dynamic content - API data, Images, Nested accordions, Content that can grow/shrink
 ❌ Static content - `scrollHeight` is usually enough.
 ---
 
 ## Remember
+
 - Observe the **inner content**, not the animated wrapper.
 - Create the observer inside `useEffect()`.
 - Always call `disconnect()` on cleanup.
+
 ---
-
-
-
-
-
-
-
-
-
-
-
-
