@@ -1,7 +1,7 @@
-@forward 'variables';
-@forward 'mixins';
-@forward 'functions';
-@forward 'animations';
+@forward '@/styles/variables';
+@forward '@/styles/mixins';
+@forward '@/styles/functions';
+@forward '@/styles/animations';
 
 /*
     variables / mixins / functions emit NO CSS — free to @use everywhere.

@@ -1,0 +1,39 @@
+@use '@/styles/index.scss' as *;
+
+.modal-page {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  inset: 0;
+  background-color: var(--glassmorphism-bg);
+  color: var(--text);
+  z-index: 1;
+  @include flex();
+}
+
+.modal-container {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: $spacing-md;
+  border-radius: $radius-sm;
+  max-width: 600px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-head {
+  @include flex(row, space-between, center);
+}
+
+.modal-cross {
+  cursor: pointer;
+}
+
+.modal-content {
+  padding: $spacing-md 0;
+}
+
+.modal-footer {
+  @include flex(row, flex-end, center);
+}

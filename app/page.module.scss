@@ -1,6 +1,6 @@
-@use "@/styles/index.scss" as *;
+@use '@/styles/index.scss' as *;
 
 .page-container {
-    width: 100%;
-    @include flex(column, center, center, $pageSectionGaps);
+  width: 100%;
+  @include flex(column, center, center, $pageSectionGaps);
 }

@@ -1,10 +1,10 @@
-@use "@/styles/index.scss" as *;
+@use '@/styles/index.scss' as *;
 
 .content-container {
-    @include flex(column, flex-start, center, $pageSectionGaps);
+  @include flex(column, flex-start, center, $pageSectionGaps);
 }
 
 .sidebar,
 .main-content {
-    width: 100%;
+  width: 100%;
 }

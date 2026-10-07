@@ -1,4 +1,4 @@
-@use "@/styles/index.scss" as *;
+@use '@/styles/index.scss' as *;
 
 .carouselWrapper {
   width: 100%;
@@ -25,7 +25,7 @@
 }
 
 .textDetails {
-  @include flex(column, flex-start, flex-start, calc(2.5*$gapSmall));
+  @include flex(column, flex-start, flex-start, calc(2.5 * $gapSmall));
   max-height: calc(100% - 135px);
 }
 
@@ -34,7 +34,6 @@
   color: var(--text);
   width: 100%;
   @include ellipsis();
-
 }
 
 .authorText {

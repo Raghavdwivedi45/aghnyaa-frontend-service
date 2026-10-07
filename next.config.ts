@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 /* Article cover images and user avatars are served straight from the publish service's
    S3 bucket, and next/image rejects any host not listed in remotePatterns. Read from env
@@ -12,7 +12,9 @@ import type { NextConfig } from "next";
 const s3PublicUrlPrefix = process.env.AWS_PUBLIC_URL_PREFIX;
 
 if (!s3PublicUrlPrefix) {
-  console.warn("[next.config] AWS_PUBLIC_URL_PREFIX is not set -> next/image will reject every S3-hosted cover image and avatar.");
+  console.warn(
+    '[next.config] AWS_PUBLIC_URL_PREFIX is not set -> next/image will reject every S3-hosted cover image and avatar.',
+  );
 }
 
 const nextConfig: NextConfig = {
@@ -25,17 +27,17 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "img.youtube.com",
+        protocol: 'https',
+        hostname: 'img.youtube.com',
       },
       {
-        protocol: "https",
-        hostname: "i.ytimg.com",
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
       },
       ...(s3PublicUrlPrefix
         ? [
             {
-              protocol: "https" as const,
+              protocol: 'https' as const,
               hostname: new URL(s3PublicUrlPrefix).hostname,
             },
           ]

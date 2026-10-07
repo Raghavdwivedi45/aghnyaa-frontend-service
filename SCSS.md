@@ -1,12 +1,19 @@
 # Flexbox Notes
 
 ## `flex-grow`
+
 Distributes **remaining (extra) space** among flex items.
 
 ```css
-A { flex-grow: 1; }
-B { flex-grow: 2; }
-C { flex-grow: 1; }
+A {
+  flex-grow: 1;
+}
+B {
+  flex-grow: 2;
+}
+C {
+  flex-grow: 1;
+}
 ```
 
 If 400px is left:
@@ -21,12 +28,19 @@ If 400px is left:
 ---
 
 ## `flex-shrink`
+
 Determines who sacrifices space when the parent is too small.
 
 ```css
-A { flex-shrink: 0; }
-B { flex-shrink: 1; }
-C { flex-shrink: 1; }
+A {
+  flex-shrink: 0;
+}
+B {
+  flex-shrink: 1;
+}
+C {
+  flex-shrink: 1;
+}
 ```
 
 - A keeps its size.

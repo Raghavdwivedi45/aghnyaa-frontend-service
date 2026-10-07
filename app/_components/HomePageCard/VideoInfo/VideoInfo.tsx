@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from 'react'
-import PlayerFactory from '@/components/player/PlayerFactory'
-import { IVideo, IVideoInfo } from '@/constants/interfaces'
-import styles from "./VideoInfo.module.scss";
+import React, { useEffect, useState } from 'react';
+import PlayerFactory from '@/components/player/PlayerFactory';
+import { IVideo, IVideoInfo } from '@/constants/interfaces';
+import styles from './VideoInfo.module.scss';
 import NativePlayer from '@/components/player/NativePlayer';
 import EmbedPlayer from '@/components/player/EmbedPlayer';
 import SVG from '@/components/SVG/SVG';
@@ -11,7 +11,6 @@ import SVG from '@/components/SVG/SVG';
 const VideoInfo = ({ currentVideos }: IVideoInfo) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentVideo: IVideo = currentVideos[currentIndex];
-
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,8 +24,7 @@ const VideoInfo = ({ currentVideos }: IVideoInfo) => {
   const handleDotClick = (index: number) => {
     if (currentIndex === 0 && index < 0) {
       setCurrentIndex(currentVideos.length - 1);
-    }
-    else {
+    } else {
       setCurrentIndex((currentIndex) => (currentIndex + index) % currentVideos.length);
     }
   };
@@ -34,26 +32,22 @@ const VideoInfo = ({ currentVideos }: IVideoInfo) => {
   return (
     <div className={styles.playerContainer}>
       <div onClick={() => handleDotClick(-1)} className={styles.navButtonPrev}>
-        <SVG type='next' height={48} width={48} color='var(--text-secondary)' />
+        <SVG type="next" height={48} width={48} color="var(--text-secondary)" />
       </div>
 
       <div className={styles.player}>
-        {
-          currentVideo?.videoURL && (<NativePlayer src={currentVideo.videoURL} />)
-        }
-        {
-          currentVideo?.embedUrl && (<EmbedPlayer currentVideo={currentVideo} />)
-        }
-        {
-          !currentVideo?.embedUrl && !currentVideo?.videoURL && <div>Unable to play this video.</div>
-        }
+        {currentVideo?.videoURL && <NativePlayer src={currentVideo.videoURL} />}
+        {currentVideo?.embedUrl && <EmbedPlayer currentVideo={currentVideo} />}
+        {!currentVideo?.embedUrl && !currentVideo?.videoURL && (
+          <div>Unable to play this video.</div>
+        )}
       </div>
 
       <div onClick={() => handleDotClick(1)} className={styles.navButtonNext}>
-        <SVG type='next' height={48} width={48} color='var(--text-secondary)' />
+        <SVG type="next" height={48} width={48} color="var(--text-secondary)" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VideoInfo
+export default VideoInfo;

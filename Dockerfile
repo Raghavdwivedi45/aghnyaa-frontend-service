@@ -1,11 +1,11 @@
 # Production image. Local development uses Dockerfile.local (`next dev` + bind mount).
-FROM node:24-slim
+# Pinned to the host's Node/npm so `npm ci` accepts lockfiles generated locally. Bump both together.
+FROM node:24.11.1-slim
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install -g npm@11.6.2
 RUN npm ci
 
 COPY . .

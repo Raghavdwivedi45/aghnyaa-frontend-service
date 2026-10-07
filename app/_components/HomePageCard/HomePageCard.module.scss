@@ -1,4 +1,4 @@
-@use "@/styles/index.scss" as *;
+@use '@/styles/index.scss' as *;
 
 .showcaseSection {
   @include flex(row, space-evenly, center, $gapMedium);
@@ -9,7 +9,6 @@
   @include flex(row-reverse, space-evenly, center, $gapMedium);
   width: 100%;
 }
-
 
 .heading {
   @include flex(column, left, flex-start, $gapMedium);

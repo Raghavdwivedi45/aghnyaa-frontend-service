@@ -1,10 +1,11 @@
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
-import { sanskrit } from "./fonts";
-import "./globals.scss";
-import styles from "./layout.module.scss"
-import AuthProvider from "@/provider/AuthProvider";
-import ToasterProvider from "@/provider/ToasterProvider";
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import { sanskrit } from './fonts';
+import './globals.scss';
+import styles from './layout.module.scss';
+import AuthProvider from '@/provider/AuthProvider';
+import ToasterProvider from '@/provider/ToasterProvider';
+import QCProvider from '@/provider/QueryClientProvider';
 
 export default function RootLayout({
   children,
@@ -15,16 +16,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={sanskrit.variable}>
       <body suppressHydrationWarning>
-        <AuthProvider>
-          <ToasterProvider>
-            <Header />
-            <div className={styles["header-space-fill-up"]}></div>
-            <main className={styles["aghnyaa-main"]}>
-              {children}
-            </main>
-            <Footer />
-          </ToasterProvider>
-        </AuthProvider>
+        <QCProvider>
+          <AuthProvider>
+            <ToasterProvider>
+              <Header />
+              <div className={styles['header-space-fill-up']}></div>
+              <main className={styles['aghnyaa-main']}>{children}</main>
+              <Footer />
+            </ToasterProvider>
+          </AuthProvider>
+        </QCProvider>
       </body>
     </html>
   );
