@@ -34,8 +34,9 @@ export const fetchMyDrafts = async () => {
 };
 
 export const fetchMyPublished = async (filters: IAllArticleFilters = {}) => {
+  const cookieStore = await cookies();
+
   try {
-    const cookieStore = await cookies();
     const queryParams = buildQueryParams(filters);
     const res = await fetch(URLGenerator('PUBLISH', '/v1/articles', queryParams.toString()), {
       headers: {
