@@ -10,11 +10,14 @@ import { HomeCardVariantType, languageType, SVGType, themeType, userRole } from 
 export const BRAND_NAME = 'Aghnyaa';
 
 export const headerNavLinks = [
-  { text: 'Books', endpoint: '/books' },
+  // { text: 'Books', endpoint: '/books' },
   { text: 'Articles', endpoint: '/articles' },
-  { text: 'Videos', endpoint: '/videos' },
-  { text: 'Cases', endpoint: '/cases' },
-  { text: 'Contact Us', endpoint: '/contact' },
+  // { text: 'Videos', endpoint: '/videos' },
+  { text: 'Videos', endpoint: '/articles' },
+  // { text: 'Cases', endpoint: '/cases' },
+  // { text: 'Contact', endpoint: '/contact' },
+  { text: 'Contact', endpoint: '/articles' },
+  { text: 'Support Us', endpoint: '/support' },
 ];
 
 export const heroStats: { icon: SVGType; count: string | number; label: string }[] = [

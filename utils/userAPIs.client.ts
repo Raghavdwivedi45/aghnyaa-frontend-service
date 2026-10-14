@@ -1,4 +1,4 @@
-import { ILoginPayload, IUserInfo, IUserInfoResponse } from '@/constants/interfaces';
+import { ILoginPayload, IPaymentCreation, IUserInfo } from '@/constants/interfaces';
 import { URLGenerator } from './helperFunctions';
 
 export const initializeAuth = async (): Promise<IUserInfo | null> => {
@@ -42,12 +42,35 @@ export const loginUser = async (loginPayload: ILoginPayload) => {
       body: JSON.stringify(loginPayload),
     });
 
-    const data: { data: IUserInfoResponse } = await res.json();
+    const data: { data: IUserInfo } = await res.json();
     return { data: data?.data, status: res.status };
   } catch (error) {
     console.error('Login user failed:', error);
     // return null;
     // Don't return null from the API function. Throw the error instead. TanStack Query is designed to handle rejected promises as errors.
+    throw error;
+  }
+};
+
+export const createPayment = async ({
+  paymentType,
+  amount,
+}: {
+  paymentType: string;
+  amount: number | string;
+}) => {
+  try {
+    const res = await fetch(URLGenerator('USER', '/protected/v1/payment/auth/create-payment'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ paymentType, amount }),
+    });
+
+    const data: { data: IPaymentCreation; message?: string } = await res.json();
+    return { data: data?.data, status: res.status, message: data?.message };
+  } catch (error) {
+    console.error('Payment creation failed:', error);
     throw error;
   }
 };

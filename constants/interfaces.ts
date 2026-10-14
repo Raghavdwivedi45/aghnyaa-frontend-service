@@ -177,6 +177,7 @@ export interface IUserInfo {
   };
   isBlocked: boolean;
   avatar: string;
+  isSubscribed: boolean;
   emailVerified: boolean;
   contactVerified: false;
   lastLogin: Date;
@@ -207,13 +208,15 @@ export interface IUserStreak {
   };
 }
 
-export interface IUserInfoResponse extends IUserInfo {
-  otp: any;
-  password: any;
-}
-
 export interface IUploadImageResponse {
   url: string;
   fields: Record<string, string>;
   key: string;
+}
+
+export interface IPaymentCreation {
+  razorpay_public_key: string;
+  amount: string;
+  currency: string;
+  id: string;
 }

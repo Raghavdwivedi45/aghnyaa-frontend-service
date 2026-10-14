@@ -1,0 +1,15 @@
+@use '@/styles/index.scss' as *;
+
+.support-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: $gapMedium;
+}
+
+.support-card {
+  padding: $spacing-sm;
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  color: var(--text);
+  @include flex(column, center, center, $spacing-sm);
+}

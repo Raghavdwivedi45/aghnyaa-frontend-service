@@ -22,3 +22,9 @@ export const fetchUserStreak = async () => {
   );
   return data;
 };
+
+export const fetchDonationOptions = async () => {
+  const res = await fetch(URLGenerator('USER', '/v1/auth/products'));
+  const data: { data: Record<string, string> } = await res.json();
+  return data?.data;
+};

@@ -22,8 +22,6 @@ const DetailedArticleSidebar = ({
   likeOrBookmarkArticle,
   isBookmarked,
 }: IDetailedSidebar) => {
-  if (!articleSlug || !likeOrBookmarkArticle) return null;
-
   const [amountScrolled, setAmountScrolled] = useState<number>(0);
   const { setSuccessList, setErrorList } = useContext(ToasterContext);
 
@@ -47,6 +45,8 @@ const DetailedArticleSidebar = ({
     };
     updateHistory();
   }, [articleSlug]);
+
+  if (!articleSlug || !likeOrBookmarkArticle) return null;
 
   const handleLikes = async (value: 'Like' | 'Dislike') => {
     if (!value) return;

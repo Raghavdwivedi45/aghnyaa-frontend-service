@@ -113,3 +113,11 @@ export const buildQueryParams = (filters: object) => {
 
   return params.toString();
 };
+
+export const convertPaiseToRupee = (amount: number | string) => {
+  const amt = Number(amount);
+  if (typeof amt !== 'number') {
+    return 0;
+  }
+  return amt / 100;
+};
