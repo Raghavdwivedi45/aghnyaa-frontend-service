@@ -24,7 +24,13 @@ declare global {
   }
 }
 
-const PaymentButton = ({ paymentType, amount }: { paymentType: string; amount: number | string }) => {
+const PaymentButton = ({
+  paymentType,
+  amount,
+}: {
+  paymentType: string;
+  amount: number | string;
+}) => {
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
   const { setErrorList } = useContext(ToasterContext);
 

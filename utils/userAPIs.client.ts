@@ -52,7 +52,13 @@ export const loginUser = async (loginPayload: ILoginPayload) => {
   }
 };
 
-export const createPayment = async ({paymentType, amount} : {paymentType: string, amount: number | string}) => {
+export const createPayment = async ({
+  paymentType,
+  amount,
+}: {
+  paymentType: string;
+  amount: number | string;
+}) => {
   try {
     const res = await fetch(URLGenerator('USER', '/protected/v1/payment/auth/create-payment'), {
       method: 'POST',
@@ -61,7 +67,7 @@ export const createPayment = async ({paymentType, amount} : {paymentType: string
       body: JSON.stringify({ paymentType, amount }),
     });
 
-    const data: { data: IPaymentCreation; message?: string; } = await res.json();
+    const data: { data: IPaymentCreation; message?: string } = await res.json();
     return { data: data?.data, status: res.status, message: data?.message };
   } catch (error) {
     console.error('Payment creation failed:', error);

@@ -22,7 +22,9 @@ const page = async () => {
 
       <UserSettingInputs userInfo={userInfo} />
 
-      {myDrafts && myDrafts?.length>0 && <h2 className={styles['settings-heading']}>Draft Articles</h2>}
+      {myDrafts && myDrafts?.length > 0 && (
+        <h2 className={styles['settings-heading']}>Draft Articles</h2>
+      )}
 
       <div className={styles['user-drafts']}>
         {myDrafts?.map((article, idx) => (
