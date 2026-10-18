@@ -8,15 +8,15 @@ import SVG from '../SVG/SVG';
 import { AuthContext } from '@/contexts/AuthContext';
 import { fetchPOST } from '@/utils/fetchAPIFunctions';
 import { URLGenerator } from '@/utils/helperFunctions';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Header = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
+  const { user } = useContext(AuthContext);
 
   const logout = async () => {
     const { data } = await fetchPOST(URLGenerator('USER', '/protected/v1/auth/logout'));
-    if (data) {
-      setUser(null);
-    }
+    if(data) queryClient.setQueryData(['auth'], null);
   };
 
   return (
