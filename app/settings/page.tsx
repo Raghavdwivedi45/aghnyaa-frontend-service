@@ -12,6 +12,10 @@ const page = async () => {
   const myDrafts = await fetchMyDrafts();
   const published = await fetchMyPublished();
 
+  console.log(userInfo, "user")
+  console.log(myDrafts, "drafts")
+  console.log(published, "published")
+
   if (!userInfo) return null;
 
   return (
