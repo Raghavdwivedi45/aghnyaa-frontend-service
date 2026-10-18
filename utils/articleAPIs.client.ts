@@ -1,14 +1,16 @@
 import { IArticleForm1, IBookmark, IComment, ILike } from '@/constants/article.interfaces';
 import { fetchPOST, generatePDF } from './fetchAPIFunctions';
-import { URLGenerator } from './helperFunctions';
 import { initialBookmarks } from '@/constants/article.constants';
+import { URLGenerator } from './helperFunctions';
 
 /* Client-safe article APIs: plain browser fetches with credentials, no request-time server APIs.
    Kept out of articleAPIs.ts so Client Components don't pull next/headers into the browser bundle. 
 */
 
+const publishProxyUrl = (endpoint: string) => `/api/publish${endpoint}`;
+
 export const createArticleDraft = async (body: IArticleForm1) => {
-  const res = await fetch(URLGenerator('PUBLISH', '/protected/v1/articles/create-draft/'), {
+  const res = await fetch(publishProxyUrl('/protected/v1/articles/create-draft/'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -26,7 +28,7 @@ export const updateArticleDraft = async ({
   body: Partial<IArticleForm1>;
   slug: string;
 }) => {
-  const res = await fetch(URLGenerator('PUBLISH', `/protected/v1/articles/create-draft/${slug}`), {
+  const res = await fetch(publishProxyUrl(`/protected/v1/articles/create-draft/${slug}`), {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -41,7 +43,7 @@ export const likePublishedArticle = async (articleSlug: string | null) => {
   if (!articleSlug) return null;
 
   const data = await fetchPOST<ILike>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${articleSlug}/like`),
+    publishProxyUrl(`/protected/v1/articles/${articleSlug}/like`),
   );
   return data;
 };
@@ -50,7 +52,7 @@ export const unlikePublishedArticle = async (articleSlug: string | null) => {
   if (!articleSlug) return null;
 
   const data = await fetchPOST<ILike>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${articleSlug}/like`),
+    publishProxyUrl(`/protected/v1/articles/${articleSlug}/like`),
     {},
     {},
     'DELETE',
@@ -62,7 +64,7 @@ export const bookmarkPublishedArticle = async (articleSlug: string | null) => {
   if (!articleSlug) return null;
 
   const result = await fetchPOST<IBookmark>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${articleSlug}/bookmark`),
+    publishProxyUrl(`/protected/v1/articles/${articleSlug}/bookmark`),
   );
   return result;
 };
@@ -71,7 +73,7 @@ export const unbookmarkPublishedArticle = async (articleSlug: string | null) => 
   if (!articleSlug) return null;
 
   const result = await fetchPOST<IBookmark>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${articleSlug}/bookmark`),
+    publishProxyUrl(`/protected/v1/articles/${articleSlug}/bookmark`),
     {},
     {},
     'DELETE',
@@ -83,7 +85,7 @@ export const updateUserHistory = async (articleSlug: string | null) => {
   if (!articleSlug) return null;
 
   const { data } = await fetchPOST<IBookmark>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${articleSlug}/performance`),
+    publishProxyUrl(`/protected/v1/articles/${articleSlug}/performance`),
     {},
     {},
     'PATCH',
@@ -102,7 +104,7 @@ export const generateArticlePDF = async (articleSlug: string | null) => {
 export const commentArticle = async (slug: string, comment: string) => {
   if (!slug || !comment) return;
   const result = await fetchPOST<IComment>(
-    URLGenerator('PUBLISH', `/protected/v1/articles/${slug}/comment`),
+    publishProxyUrl(`/protected/v1/articles/${slug}/comment`),
     { comment },
   );
   return result;
