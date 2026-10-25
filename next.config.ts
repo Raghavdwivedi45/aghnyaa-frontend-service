@@ -18,14 +18,6 @@ if (!s3PublicUrlPrefix) {
 }
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/article/:path*',
-        destination: `${process.env.AGHNYAA_PUBLISH_SERVICE_INTERNAL}/:path*`,
-      },
-    ];
-  },
   /* config options here */
   reactCompiler: true,
   // Pin the workspace root to this project. A stray package-lock.json in an ancestor directory makes Next.js infer the wrong root, so Turbopack would watch and resolve files from the wrong directory.

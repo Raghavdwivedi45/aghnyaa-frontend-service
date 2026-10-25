@@ -8,7 +8,7 @@ import { URLGenerator } from './helperFunctions';
 */
 
 export const createArticleDraft = async (body: IArticleForm1) => {
-  const res = await fetch('/api/article/protected/v1/articles/create-draft/', {
+  const res = await fetch(URLGenerator('PUBLISH', '/protected/v1/articles/create-draft/'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -26,7 +26,7 @@ export const updateArticleDraft = async ({
   body: Partial<IArticleForm1>;
   slug: string;
 }) => {
-  const res = await fetch(`/api/article/protected/v1/articles/create-draft/${slug}`, {
+  const res = await fetch(URLGenerator('PUBLISH', `/protected/v1/articles/create-draft/${slug}`), {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
