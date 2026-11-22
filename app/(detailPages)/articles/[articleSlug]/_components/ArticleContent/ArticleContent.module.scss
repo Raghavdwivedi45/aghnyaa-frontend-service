@@ -71,6 +71,11 @@ p.hero-subtitle {
   position: relative;
 }
 
+.article-body iframe {
+  display: block;
+  margin: $spacing-sm auto;
+}
+
 .figure {
   width: 100%;
   margin: 0;

@@ -9,6 +9,7 @@ import { fetchGET } from './fetchAPIFunctions';
 import { buildQueryParams, URLGenerator } from './helperFunctions';
 import { cookies } from 'next/headers';
 import { initialPayload } from '@/constants/article.constants';
+import { cache } from 'react';
 
 export const fetchArticleInfo = async (articleSlug: string | null) => {
   // used when rendering any type(draft/published) article for editing (login required)
@@ -33,7 +34,7 @@ export const fetchMyDrafts = async () => {
   return data;
 };
 
-export const fetchMyPublished = async (filters: IAllArticleFilters = {}) => {
+export const fetchMyPublishedServer = cache(async (filters: IAllArticleFilters = {}) => {
   const cookieStore = await cookies();
 
   try {
@@ -54,7 +55,7 @@ export const fetchMyPublished = async (filters: IAllArticleFilters = {}) => {
   } catch (e) {
     console.error('Error fetching my published articles:', e);
   }
-};
+});
 
 export const fetchAllPublishedAuthors = async () => {
   const { data } = await fetchGET<IAllAuthors[]>(URLGenerator('PUBLISH', '/v1/articles/user-list'));

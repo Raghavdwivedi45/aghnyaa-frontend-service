@@ -1,0 +1,18 @@
+@use '@/styles/index.scss' as *;
+
+%check {
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  height: 16px;
+  width: 16px;
+}
+
+.checkbox {
+  @extend %check;
+  background-color: var(--bg);
+}
+
+.checkbox-checked {
+  @extend %check;
+  background-color: var(--border);
+}

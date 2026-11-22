@@ -1,0 +1,22 @@
+@use '@/styles/index.scss' as *;
+
+.vertical-draggable {
+  width: 100%;
+  @include flex(column, flex-start, flex-start, $gapSmall);
+}
+
+.draggables {
+  width: inherit;
+  padding: $spacing-sm $spacing-md $spacing-sm $spacing-sm;
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  position: relative;
+  cursor: grab;
+}
+
+.draggable-icon {
+  position: absolute;
+  top: 50%;
+  right: $spacing-sm;
+  transform: translateY(-50%);
+}

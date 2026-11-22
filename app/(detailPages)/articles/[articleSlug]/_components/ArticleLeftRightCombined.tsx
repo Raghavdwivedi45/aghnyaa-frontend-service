@@ -14,6 +14,7 @@ import { initialPayload } from '@/constants/article.constants';
 import AddComment from '@/components/Comments/AddComment';
 import { formatDateTime } from '@/utils/helperFunctions';
 import { AuthContext } from '@/contexts/AuthContext';
+import Link from 'next/link';
 
 const ArticleLeftRightCombined = ({
   article,
@@ -70,6 +71,27 @@ const ArticleLeftRightCombined = ({
             ))}
           </div>
         </div>
+
+        <Accordion additionalIcon="comment" heading="References">
+          <ol>
+            {articleInfo?.references?.map((reference, idx) =>
+              reference?.type === 'link' ? (
+                <li key={idx}>
+                  <Link
+                    className={styles['reference-link']}
+                    href={reference?.description}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {reference?.description}
+                  </Link>
+                </li>
+              ) : (
+                <li key={idx}>{reference?.description}</li>
+              ),
+            )}
+          </ol>
+        </Accordion>
 
         <Accordion additionalIcon="comment" heading="Comments">
           <AddComment

@@ -141,7 +141,6 @@ export const generatePDF = async (pdfUrl: string) => {
     });
 
     if (!response.ok) {
-      console.error(response);
       return;
     }
     const blob = await response.blob();

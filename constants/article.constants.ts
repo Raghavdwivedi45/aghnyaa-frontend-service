@@ -66,6 +66,7 @@ export const publishingOptions: Option[] = [
 ];
 
 export const initialPayload: IArticleForm1 = {
+  _id: '',
   title: '',
   slug: '',
   author: {
@@ -86,6 +87,16 @@ export const initialPayload: IArticleForm1 = {
   readTime: 2,
   isLikedByUser: false,
   isBookmarkedByUser: false,
+  references: [],
+  linkedArticles: []
 };
 
 export const initialBookmarks: IBookmark = { isBookmarkedByUser: false, bookmarks: 0 };
+
+export const articleTips = [
+  'Write a clear engaging title',
+  'Add a compelling excerpt',
+  'Use relevant tags and category',
+  'Include high quality cover image',
+  'Proofread before publishing',
+];

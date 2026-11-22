@@ -13,6 +13,7 @@ const AddComment = ({ slug, myComment }: { slug: string; myComment: IComment | n
   const [commentText, setCommentText] = useState<string>(myComment?.comment || '');
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Restore the local editable comment state whenever the saved comment prop changes.
     setCommentText(myComment?.comment || '');
     setSaved(!!myComment?.comment);
   }, [myComment?.comment]);
@@ -59,6 +60,7 @@ const AddComment = ({ slug, myComment }: { slug: string; myComment: IComment | n
 
       <textarea
         value={commentText}
+        placeholder="Enter your comment here..."
         onChange={(e) => setCommentText(e?.target?.value)}
         disabled={saved || !isEditState}
         className={styles['comment-textbox']}

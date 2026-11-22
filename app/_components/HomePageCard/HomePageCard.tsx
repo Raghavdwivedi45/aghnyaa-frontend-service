@@ -5,13 +5,13 @@ import { homeCardInformation } from '@/constants/constants';
 import ArticleInfo from './ArticleInfo/ArticleInfo';
 import VideoInfo from './VideoInfo/VideoInfo';
 import { sampleBooks, sampleVideo } from '@/constants/MOCK_DATA';
-import { fetchMyPublished } from '@/utils/articleAPIs';
+import { fetchMyPublishedServer } from '@/utils/articleAPIs';
 
 export default async function HomePageCard({
   direction = 'row',
   variant = 'book',
 }: IHomeCardVariant) {
-  const articles = await fetchMyPublished();
+  const articles = await fetchMyPublishedServer();
   if (!articles?.articlesWithAuthors?.length) return <div>No article found</div>;
   // fetch 3 top books here
   // fetch 3 top videos here

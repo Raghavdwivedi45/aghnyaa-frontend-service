@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from '../page.module.scss';
 import ButtonSet from '@/components/ButtonSet/ButtonSet';
 import Input from '@/components/Input/Input';
@@ -6,10 +6,12 @@ import { ILoginPayload } from '@/constants/interfaces';
 import { initialLoginPayload } from '@/constants/constants';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { loginUser } from '@/utils/userAPIs.client';
+import { ToasterContext } from '@/contexts/ToasterContext';
 
 const LoginInputGroup = ({ otpNeeded }: { otpNeeded: (loginPayload: ILoginPayload) => void }) => {
   const [loginPayload, setLoginPayload] = useState<ILoginPayload>(initialLoginPayload);
   const queryClient = useQueryClient();
+  const { setSuccessList, setErrorList } = useContext(ToasterContext);
 
   const updateCredentialsPayload = (key: 'username' | 'email' | 'password', value: string) => {
     if (key === 'username' || key === 'email') {
@@ -21,13 +23,17 @@ const LoginInputGroup = ({ otpNeeded }: { otpNeeded: (loginPayload: ILoginPayloa
   const loginMutation = useMutation({
     mutationFn: loginUser,
 
-    onSuccess: ({ data, status }, loginPayload) => {
+    onSuccess: ({ data, status, message }, loginPayload) => {
       if (status === 402) {
         otpNeeded(loginPayload);
         return;
       }
 
-      if (status !== 200) return;
+      if (status !== 200) {
+        setErrorList(message);
+        return;
+      }
+      setSuccessList(message);
       queryClient.setQueryData(['auth'], data);
     },
   });

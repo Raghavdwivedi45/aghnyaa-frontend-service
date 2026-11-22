@@ -57,7 +57,9 @@ export type SVGType =
   | 'phone'
   | 'theme'
   | 'pencil'
-  | 'tick';
+  | 'tick'
+  | 'drag'
+  | 'link';
 
 export type timeZoneType = 'Asia/Kolkata' | 'UTC';
 
@@ -121,7 +123,7 @@ export type RadioGroupProps = {
   onChange: (value: string) => void;
 };
 
-export type userRole = 'READER' | 'AUTHOR' | 'ADMIN';
+export type userRole = 'READER'; // | 'AUTHOR' | 'ADMIN';
 
 export type themeType = 'Default';
 
@@ -149,3 +151,4 @@ export type toolbarSVGType =
   | 'bullet-list';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';
+export type tiptapModalType = 'image' | 'link' | 'references' | 'youtube-video';

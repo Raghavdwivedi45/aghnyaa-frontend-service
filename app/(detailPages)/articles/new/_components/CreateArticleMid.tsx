@@ -6,21 +6,32 @@ import Input from '@/components/Input/Input';
 import FileInput from '@/components/Input/FileInput';
 import Tiptap from '@/components/Tiptap/Tiptap';
 import Dropdown from '@/components/Dropdown/Dropdown';
-import { articleTags, publishingOptions } from '@/constants/article.constants';
-//  articleCategory
+import { articleTags, articleTips, publishingOptions } from '@/constants/article.constants'; //  articleCategory
 import RadioGroup from '@/components/RadioGroup/RadioGroup';
 import Toggle from '@/components/Toggle/Toggle';
 import SVG from '@/components/SVG/SVG';
 import BreadCrumbs from '@/components/BreadCrumbs/BreadCrumbs';
 import { newArticleBreadcrumbs } from '@/constants/constants';
 import PublishButton from './PublishButton';
-import { IArticleForm1 } from '@/constants/article.interfaces';
+import { IArticleForm1, IReference } from '@/constants/article.interfaces';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/contexts/AuthContext';
+import { isEligibleForDraft, isReferenceArray } from '@/utils/helperFunctions';
+import { ToasterContext } from '@/contexts/ToasterContext';
+import LinkRelatedArticles from './LinkRelatedArticles';
 
 const CreateArticleMid = ({ parentPayload }: { parentPayload: IArticleForm1 }) => {
+  const [payload, setPayload] = useState<IArticleForm1>(parentPayload);
+  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+
   const router = useRouter();
   const { user, isPending: isAuthPending } = useContext(AuthContext);
+  const { setSuccessList } = useContext(ToasterContext);
+
+  const resetLocalStorage = () => {
+    localStorage.removeItem('article-draft');
+    setPayload(parentPayload);
+  };
 
   useEffect(() => {
     if (!isAuthPending && user?.role !== 'AUTHOR') {
@@ -28,17 +39,62 @@ const CreateArticleMid = ({ parentPayload }: { parentPayload: IArticleForm1 }) =
     }
   }, [isAuthPending, router, user?.role]);
 
-  const [payload, setPayload] = useState<IArticleForm1>(parentPayload);
-  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  useEffect(() => {
+    const savedDraft = localStorage.getItem('article-draft');
 
-  const updatePayload = (key: keyof IArticleForm1, value: string | number | string[] = '') => {
+    if (savedDraft) {
+      const parsedDraft = JSON.parse(savedDraft);
+      if (payload.slug !== parsedDraft?.slug) return;
+
+      // Restore draft from localStorage after hydration.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPayload(parsedDraft);
+      setSuccessList('Showing your unsaved changes. You can continue editing or discard changes.');
+    }
+  }, [payload.slug, setSuccessList]);
+
+  useEffect(() => {
+    /*
+      This useEffect implements auto-saving every 30 seconds.
+      1. useEffect runs when the component mounts or whenever payload changes.
+      2. setInterval() starts a timer that executes every 30_000 milliseconds (30 seconds).
+      3. Every 30 seconds (if conditions are met):
+        - JSON.stringify(payload) converts the article data into a JSON string.
+        - localStorage.setItem() saves it under the key 'article-draft'.
+      4. return () => clearInterval(interval) clears the previous timer when the effect reruns or the component unmounts. 
+    */
+    const saveDraft = () => {
+      if (isEligibleForDraft(payload, parentPayload)) {
+        localStorage.setItem('article-draft', JSON.stringify(payload));
+      }
+    };
+    const interval = setInterval(saveDraft, 30_000); // Auto-save every 30 seconds
+    window.addEventListener('beforeunload', saveDraft); // Save before page unload
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('beforeunload', saveDraft);
+    };
+  }, [parentPayload, payload]);
+
+  const updatePayload = (
+    key: keyof IArticleForm1,
+    value: string | number | string[] | IReference[] = '',
+  ) => {
     if (key === 'isFeatured') {
       setPayload((prev) => ({ ...prev, isFeatured: !prev.isFeatured }));
       return;
     }
 
-    if (key === 'tags') {
-      if (!Array.isArray(value)) return;
+    if (key === 'references') {
+      if (!isReferenceArray(value)) {
+        return console.log('Article references must be an array of references.');
+      }
+      setPayload((prev) => ({ ...prev, references: [...value] }));
+      return;
+    } else if (key === 'tags') {
+      if (!Array.isArray(value) || !value.every((tag): tag is string => typeof tag === 'string'))
+        return;
       setPayload((prev) => ({ ...prev, tags: [...value] }));
       return;
     }
@@ -82,6 +138,7 @@ const CreateArticleMid = ({ parentPayload }: { parentPayload: IArticleForm1 }) =
             articlePayload={payload}
             originalPayload={parentPayload}
             coverImageFile={coverImageFile}
+            resetLocalStorage={resetLocalStorage}
           />
         </div>
       </div>
@@ -112,7 +169,9 @@ const CreateArticleMid = ({ parentPayload }: { parentPayload: IArticleForm1 }) =
 
           <Tiptap
             content={payload?.content}
+            references={payload?.references}
             updateContent={(content) => updatePayload('content', content)}
+            updateReference={(references) => updatePayload('references', references)}
           />
           <Dropdown
             type="tagsinput"
@@ -158,18 +217,17 @@ const CreateArticleMid = ({ parentPayload }: { parentPayload: IArticleForm1 }) =
           />
           <hr className={styles['right-divider']} />
 
+          <LinkRelatedArticles handleModalSubmit={(val) => updatePayload('linkedArticles', val)} />
+
           <div className={styles['writing-tips-container']}>
             <h4 className={styles['writing-tips-head']}>
               <SVG type="bulb" />
               Writing Tips
             </h4>
-
             <ul className={styles['writing-tips-list']}>
-              <li>Write a clear engaging title</li>
-              <li>Add a compelling excerpt</li>
-              <li>Use relevant tags and category</li>
-              <li>Include high quality cover image</li>
-              <li>Proofread before publishing</li>
+              {articleTips.map((tip, index) => (
+                <li key={index}>{tip}</li>
+              ))}
             </ul>
           </div>
         </div>

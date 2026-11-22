@@ -7,6 +7,7 @@
 
 .page-container {
   @include flex(row, space-between, flex-start, calc(1.5 * $gapMedium));
+  margin-bottom: $gapLarge;
 }
 
 .page-left {
@@ -88,4 +89,50 @@
   @include flex(row, flex-start, center, $gapSmall);
   flex-wrap: wrap;
   font-size: smaller;
+}
+
+.reference-link {
+  text-decoration: underline;
+}
+
+.page-container-2 {
+  width: 100%;
+}
+
+.related-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $gapMedium;
+  width: 100%;
+
+  > a {
+    display: block; // ensures <Link> fills the grid cell cleanly
+  }
+}
+
+.related-card {
+  width: 100%;
+  color: var(--text-muted);
+  padding: $spacing-sm;
+  background-color: var(--glassmorphism-bg);
+  @include flex(column, space-between, center, $gapSmall);
+  border-radius: $radius-md;
+  cursor: pointer;
+
+  .related-card-img {
+    position: relative;
+    height: 120px;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+  .related-card-title {
+    max-width: 100%;
+    width: 100%;
+    @include ellipsis();
+  }
 }

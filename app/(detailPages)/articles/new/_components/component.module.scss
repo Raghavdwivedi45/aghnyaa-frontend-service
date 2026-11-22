@@ -55,3 +55,52 @@
   padding: $spacing-sm;
   color: var(--button-secondary-text);
 }
+
+.related-container {
+  display: grid;
+  gap: $spacing-md;
+  width: 35vw;
+  max-height: 350px;
+  overflow-y: auto;
+  grid-template-columns: repeat(3, 1fr);
+
+  .related-card {
+    padding: $spacing-sm;
+    background-color: var(--glassmorphism-bg);
+    width: 160px;
+    height: 160px;
+    @include flex(column, space-between, center);
+    border-radius: $radius-md;
+    position: relative;
+    cursor: pointer;
+
+    .related-card-img {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .related-card-title {
+      min-width: 0;
+      overflow: hidden;
+      width: 100%;
+      @include ellipsis();
+    }
+
+    .related-checkbox {
+      position: absolute;
+      top: $spacing-sm;
+      right: $spacing-sm;
+      z-index: 2;
+    }
+  }
+}
+
+.modal-footer {
+  width: 100%;
+  @include flex(row, space-between, center, $gapSmall);
+
+  .relative-pagination {
+    width: 100%;
+  }
+}

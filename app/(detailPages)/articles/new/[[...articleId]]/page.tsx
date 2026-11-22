@@ -8,13 +8,13 @@ import { fetchArticleInfo } from '@/utils/articleAPIs';
 const page = async ({ params }: ICreateArticleProps) => {
   /* Optional catch all -> /articles/new gives undefined (create), /articles/new/<id> gives [id] (edit). */
   const { articleId } = await params;
-  const slug = articleId?.[0] ?? null;
+  const slug = articleId?.[0] ?? '';
   const article = await fetchArticleInfo(slug);
   if (articleId && !article) return <div>Empty</div>;
 
   const myPayload: IArticleForm1 = {
     ...article,
-    _id: slug ?? undefined,
+    _id: slug,
     tags: article?.tags ?? [],
   };
 
