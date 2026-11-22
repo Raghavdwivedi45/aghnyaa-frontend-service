@@ -21,7 +21,7 @@ import { Placeholder } from '@tiptap/extensions';
 import { TextStyle } from '@tiptap/extension-text-style';
 // FontFamily, FontSize
 import TextAlign from '@tiptap/extension-text-align';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SVGWithText from '@/components/SVGWithText/SVGWithText';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import { headingList, textAlignList } from '@/constants/constants';
@@ -29,21 +29,29 @@ import { headingList, textAlignList } from '@/constants/constants';
 // import { uploadImage } from "@/utils/fetchAPIFunctions";
 import ButtonSet from '../ButtonSet/ButtonSet';
 import ToolbarSVG from '../SVG/ToolbarSVG';
-import { toolbarSVGType } from '@/constants/types';
-import Modal from '../Modal/Modal';
-import Input from '../Input/Input';
+import { tiptapModalType, toolbarSVGType } from '@/constants/types';
+import TiptapModal from './TiptapModal';
+import { IReference } from '@/constants/article.interfaces';
+import VerticalDraggable from '@/components/DraggableList/VerticalDraggable';
 
 const Tiptap = ({
   content,
+  references,
   updateContent,
+  updateReference,
 }: {
   content: string;
+  references: IReference[];
   updateContent: (value: string) => void;
+  updateReference: (value: IReference[]) => void;
 }) => {
   const [propertyType, setPropertyType] = useState<'general' | 'table'>('general');
-  const [openModal, setOpenModal] = useState<'image' | null>(null);
-  const [modalValue, setModalValue] = useState<string>('');
+  const referenceArray = references ?? [];
+  const [openModal, setOpenModal] = useState<tiptapModalType | null>(null);
   const limit = 20000;
+  const updateReferences = (nextReferences: IReference[]) => {
+    updateReference(nextReferences);
+  };
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -190,6 +198,14 @@ const Tiptap = ({
     },
   });
 
+  useEffect(() => {
+    // when the content prop changes, update the editor's content if it's different from the current editor content
+    // used so that localstorage reset works
+    if (editor && editor.getHTML() !== content) {
+      editor.commands.setContent(content, { emitUpdate: false });
+    }
+  }, [content, editor]);
+
   const editorState = useEditorState({
     editor,
     selector: (context) => ({
@@ -221,41 +237,6 @@ const Tiptap = ({
     }),
   });
 
-  const addYoutubeVideo = () => {
-    const url = prompt('Enter YouTube URL');
-
-    if (url) {
-      editor?.commands?.setYoutubeVideo({
-        src: url,
-        width: 320,
-        height: 180,
-      });
-    }
-  };
-
-  const setLink = useCallback(() => {
-    const previousUrl = editor?.getAttributes('link').href;
-    const url = window.prompt('URL', previousUrl);
-
-    // cancelled
-    if (url === null) {
-      return;
-    }
-
-    // empty
-    if (url === '') {
-      editor?.chain().focus().extendMarkRange('link').unsetLink().run();
-      return;
-    }
-
-    // update link
-    try {
-      editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    } catch (e) {
-      alert(e instanceof Error ? e.message : '');
-    }
-  }, [editor]);
-
   const togglePropertyType = (passedType: 'general' | 'table') => {
     setPropertyType(passedType);
   };
@@ -264,8 +245,8 @@ const Tiptap = ({
     return null;
   }
 
-  const addImage = () => {
-    setOpenModal('image');
+  const openModalFunction = (modalType: tiptapModalType) => {
+    setOpenModal(modalType);
   };
 
   const generalButtons = [
@@ -297,6 +278,14 @@ const Tiptap = ({
       disabled: !editorState?.canLiftListItem,
     },
   ];
+
+  const setUnsetLink = () => {
+    if (editorState?.isLink) {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      return;
+    }
+    openModalFunction('link');
+  };
 
   const generalSVGs: {
     value: toolbarSVGType;
@@ -338,7 +327,7 @@ const Tiptap = ({
     {
       value: 'quote',
       title: 'Block Quote',
-      onClick: () => editor.chain().focus().toggleBlockquote().run(),
+      onClick: () => openModalFunction('references'),
       active: editorState?.isBlockquote,
     },
     {
@@ -351,15 +340,24 @@ const Tiptap = ({
       title: 'Insert Horizontal Rule',
       onClick: () => editor.chain().focus().setHorizontalRule().run(),
     },
-    { value: 'youTube-video', title: 'Insert YouTube Video', onClick: addYoutubeVideo },
-    { value: 'image', title: 'Insert Image', onClick: addImage },
+    {
+      value: 'youTube-video',
+      title: 'Insert YouTube Video',
+      onClick: () => openModalFunction('youtube-video'),
+    },
+    { value: 'image', title: 'Insert Image', onClick: () => openModalFunction('image') },
     {
       value: 'highlight',
       title: 'Highlight Text',
-      onClick: () => editor.chain().focus().toggleHighlight({ color: '#ffc078' }).run(),
+      onClick: () => editor.chain().focus().toggleHighlight({ color: 'var()' }).run(),
       active: editorState?.isHighlight,
     },
-    { value: 'link', title: 'Insert/Edit Link', onClick: setLink, active: editorState?.isLink },
+    {
+      value: 'link',
+      title: 'Insert/Edit Link',
+      onClick: setUnsetLink,
+      active: editorState?.isLink,
+    },
     {
       value: 'strikethrough',
       title: 'Strikethrough',
@@ -427,46 +425,30 @@ const Tiptap = ({
   ];
 
   const closeModal = () => {
-    setModalValue('');
     setOpenModal(null);
   };
 
-  const handleModalSubmit = () => {
-    if (modalValue.trim() !== '') {
-      editor?.chain()?.focus()?.setImage({ src: modalValue }).run();
+  const modalSubmit = (type: tiptapModalType, references: IReference, url: string) => {
+    if (type === 'image') {
+      editor.chain().focus().setImage({ src: url.trim() }).run();
+    } else if (type === 'references') {
+      const nextReferences = [...referenceArray, references];
+      updateReferences(nextReferences);
+    } else if (type === 'youtube-video') {
+      editor.commands.setYoutubeVideo({ src: url, width: 480, height: 270 });
+    } else if (type === 'link') {
+      try {
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+      } catch (error) {
+        alert(error instanceof Error ? error.message : '');
+      }
     }
-    closeModal();
-  };
-
-  const modalPlaceholder = openModal === 'image' ? 'Enter Image URL' : 'Content';
-
-  const handleModalChange = (val: string | number) => {
-    if (typeof val === 'string' && val.trim() === '') return;
-    if (val) setModalValue(val?.toString() ?? '');
-  };
-
-  const modalContents = () => {
-    return {
-      content: (
-        <Input placeholder="Type here" value={modalValue} onInputChange={handleModalChange} />
-      ),
-      footer: (
-        <div className={styles['modal-footer']}>
-          <ButtonSet primaryText="Submit" onPrimaryClick={handleModalSubmit} />
-        </div>
-      ),
-    };
   };
 
   return (
     <>
       {openModal && (
-        <Modal
-          closeModal={closeModal}
-          heading={modalPlaceholder}
-          content={modalContents().content}
-          footer={modalContents().footer}
-        />
+        <TiptapModal modalType={openModal} closeModal={closeModal} modalSubmit={modalSubmit} />
       )}
 
       <div className={styles['toolbar-container']}>
@@ -556,6 +538,8 @@ const Tiptap = ({
         <br />
         Word Count = {editorState?.wordsCount}
       </div>
+
+      <VerticalDraggable setReferenceArray={updateReferences} referenceArray={referenceArray} />
     </>
   );
 };

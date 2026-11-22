@@ -14,10 +14,12 @@ const PublishButton = ({
   articlePayload,
   originalPayload,
   coverImageFile,
+  resetLocalStorage,
 }: {
   articlePayload: IArticleForm1;
   originalPayload: IArticleForm1;
   coverImageFile: File | null;
+  resetLocalStorage: () => void;
 }) => {
   const router = useRouter();
   const isEdit = Boolean(articlePayload?.slug);
@@ -69,9 +71,9 @@ const PublishButton = ({
     <ButtonSet
       primaryText="Upload"
       primaryDisabledText="Nothing to save yet"
-      secondaryText="Preview"
+      secondaryText="Discard"
       onPrimaryClick={handlePublishClick}
-      onSecondaryClick={handlePublishClick}
+      onSecondaryClick={resetLocalStorage}
       disablePrimary={nothingToSave}
       disableSecondary={nothingToSave}
     />

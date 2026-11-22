@@ -5,12 +5,11 @@ import {
   countryCodes,
   initialLoginPayload,
   initialSignupPayload,
-  userRadioOptions,
+  // userRadioOptions,
 } from '@/constants/constants';
 import { ILoginPayload, ISignupPayload } from '@/constants/interfaces';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../page.module.scss';
-import RadioGroup from '@/components/RadioGroup/RadioGroup';
 import ButtonSet from '@/components/ButtonSet/ButtonSet';
 import { useSearchParams } from 'next/navigation';
 import { fetchPOST } from '@/utils/fetchAPIFunctions';
@@ -22,17 +21,10 @@ import LoginInputGroup from './LoginInputGroup';
 const SignupInputGroup = () => {
   const [signupPayload, setSignupPayload] = useState<ISignupPayload>(initialSignupPayload);
   const [loginPayload, setLoginPayload] = useState<ILoginPayload>(initialLoginPayload);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [otpState, setOtpState] = useState<boolean>(false);
-  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    if (searchParams?.get('isLogin')) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [searchParams]);
+  const searchParams = useSearchParams();
+  const isLogin = searchParams?.get('isLogin') === 'true';
 
   const updateCredentialsPayload = (
     key: 'username' | 'email' | 'usernameOrEmail' | 'password' | 'role' | 'countryCode' | 'phone',
@@ -46,10 +38,7 @@ const SignupInputGroup = () => {
   };
 
   const authenticateUser = async () => {
-    const { data, error } = await fetchPOST(
-      URLGenerator('USER', '/v1/auth/register'),
-      signupPayload,
-    );
+    const { error } = await fetchPOST(URLGenerator('USER', '/v1/auth/register'), signupPayload);
     if (error) {
       return;
     }
@@ -126,14 +115,14 @@ const SignupInputGroup = () => {
           />
         </div>
 
-        <div className={styles['input-group-input']}>
+        {/* <div className={styles['input-group-input']}>
           <RadioGroup
             name="role"
             value={signupPayload?.role || ''}
             onChange={(value) => updateCredentialsPayload('role', value)}
             options={userRadioOptions}
           />
-        </div>
+        </div> */}
       </div>
       <div className={styles['input-group-group']}>
         <ButtonSet primaryText="Create Account" onPrimaryClick={authenticateUser} />

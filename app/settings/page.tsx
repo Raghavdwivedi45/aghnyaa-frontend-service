@@ -3,18 +3,14 @@ import styles from './page.module.scss';
 import Image from 'next/image';
 import UserSettingInputs from './_components/UserSettingInputs';
 import { fetchUserInfo } from '@/utils/userAPIs';
-import { fetchMyDrafts, fetchMyPublished } from '@/utils/articleAPIs';
+import { fetchMyDrafts, fetchMyPublishedServer } from '@/utils/articleAPIs';
 import Link from 'next/link';
 import { formatDateTime } from '@/utils/helperFunctions';
 
 const page = async () => {
   const userInfo = await fetchUserInfo();
   const myDrafts = await fetchMyDrafts();
-  const published = await fetchMyPublished();
-
-  console.log(userInfo, "user")
-  console.log(myDrafts, "drafts")
-  console.log(published, "published")
+  const published = await fetchMyPublishedServer();
 
   if (!userInfo) return null;
 

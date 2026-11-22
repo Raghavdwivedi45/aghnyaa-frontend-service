@@ -249,7 +249,7 @@ export const initialLoginPayload: ILoginPayload = {
 
 export const userRadioOptions: { label: userRole; value: string }[] = [
   { label: 'READER', value: 'READER' },
-  { label: 'AUTHOR', value: 'AUTHOR' },
+  // { label: 'AUTHOR', value: 'AUTHOR' },
 ];
 
 export const countryCodes: { key: string; text: string }[] = [

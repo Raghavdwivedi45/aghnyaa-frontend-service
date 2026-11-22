@@ -1,3 +1,4 @@
+import { IArticleForm1, IReference } from '@/constants/article.interfaces';
 import { languageArray, themeArray } from '@/constants/constants';
 import { timeZoneType } from '@/constants/types';
 
@@ -50,12 +51,10 @@ export const getChangedFields = <T extends object>(current: T, original: T) => {
   for (const key in current) {
     const now = current[key];
     const before = original[key];
-
     const isSame =
       Array.isArray(now) && Array.isArray(before)
-        ? now.join(',') === before.join(',')
+        ? JSON.stringify(now) === JSON.stringify(before)
         : now === before;
-
     if (!isSame) changed[key] = now;
   }
 
@@ -120,4 +119,33 @@ export const convertPaiseToRupee = (amount: number | string) => {
     return 0;
   }
   return amt / 100;
+};
+
+export const isReferenceArray = (value: unknown): value is IReference[] =>
+  Array.isArray(value) &&
+  value.every(
+    (reference): reference is IReference =>
+      typeof reference === 'object' &&
+      reference !== null &&
+      'type' in reference &&
+      typeof reference.type === 'string' &&
+      'description' in reference &&
+      typeof reference.description === 'string',
+  );
+
+export const isEligibleForDraft = (payload: IArticleForm1, parentPayload: IArticleForm1) => {
+  const isEdit = Boolean(payload.slug);
+  const nothingToSave =
+    isEdit && Object.keys(getChangedFields(payload, parentPayload)).length === 0;
+  const hasDraftContent =
+    [payload.title, payload.excerpt, payload.coverImage, payload.content].some((value) =>
+      (value ?? '').trim(),
+    ) ||
+    (payload.tags?.length ?? 0) > 0 ||
+    (payload.references?.length ?? 0) > 0 ||
+    payload.isFeatured ||
+    payload.status !== parentPayload.status ||
+    payload.readTime !== parentPayload.readTime;
+
+  return !nothingToSave && hasDraftContent;
 };

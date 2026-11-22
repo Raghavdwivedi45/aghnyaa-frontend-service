@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './allArticles.module.scss';
 import ArticleCard from '../_components/ArticleCard/ArticleCard';
 import ArticlePageExtras from '../_components/ArticlePageExtras/ArticlePageExtras';
-import { fetchMyPublished } from '@/utils/articleAPIs';
+import { fetchMyPublishedServer } from '@/utils/articleAPIs';
 import Pagination from '@/components/Pagination/Pagination';
+import { IAllArticleFilters } from '@/constants/article.interfaces';
 interface ArticlesPageProps {
   searchParams: Promise<{
     page?: string;
@@ -15,19 +16,25 @@ interface ArticlesPageProps {
   }>;
 }
 
+export const metadata = {
+  title: 'Articles | Aghnyaa',
+  description:
+    "Explore articles on India's civilizational knowledge, Indic wisdom, and living traditions.",
+};
+
 const page = async ({ searchParams }: ArticlesPageProps) => {
   const params = await searchParams;
 
-  const filters: Record<string, string | number> = {};
-  filters.page = params?.page || 1;
-  filters.category = params?.category || '';
+  const filters: IAllArticleFilters = {};
+  filters.page = params?.page || '1';
+  // filters.category = params?.category || '';
   filters.tags = params?.tags || '';
   filters.authors = params?.authors || '';
-  filters.createdAfter = params?.createdAfter || '';
-  filters.createdBefore = params?.createdBefore || '';
+  filters.createdAfter = params?.createdAfter;
+  filters.createdBefore = params?.createdBefore;
+  filters.excludeContent = true;
 
-  const data = await fetchMyPublished(filters);
-
+  const data = await fetchMyPublishedServer(filters);
   const articles = data?.articlesWithAuthors;
 
   const totalPages = data?.totalPages;

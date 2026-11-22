@@ -1,11 +1,39 @@
-import { IArticleForm1, IBookmark, IComment, ILike } from '@/constants/article.interfaces';
+import {
+  IAllArticleFilters,
+  IArticleForm1,
+  IBookmark,
+  IComment,
+  ILike,
+} from '@/constants/article.interfaces';
 import { fetchPOST, generatePDF } from './fetchAPIFunctions';
 import { initialBookmarks } from '@/constants/article.constants';
-import { URLGenerator } from './helperFunctions';
+import { buildQueryParams, URLGenerator } from './helperFunctions';
 
 /* Client-safe article APIs: plain browser fetches with credentials, no request-time server APIs.
    Kept out of articleAPIs.ts so Client Components don't pull next/headers into the browser bundle. 
 */
+
+export const fetchMyPublished = async (
+  filters: IAllArticleFilters = {},
+  headers: HeadersInit = {},
+) => {
+  try {
+    const queryParams = buildQueryParams(filters);
+    const res = await fetch(URLGenerator('PUBLISH', '/v1/articles', queryParams.toString()), {
+      headers,
+    });
+
+    if (!res.ok) {
+      console.log(res?.statusText);
+    }
+
+    const data: { data: { articlesWithAuthors: IArticleForm1[]; totalPages: number } } =
+      await res.json();
+    return data?.data;
+  } catch (e) {
+    console.error('Error fetching my published articles:', e);
+  }
+};
 
 export const createArticleDraft = async (body: IArticleForm1) => {
   const res = await fetch(URLGenerator('PUBLISH', '/protected/v1/articles/create-draft/'), {

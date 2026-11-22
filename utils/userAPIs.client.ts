@@ -42,8 +42,8 @@ export const loginUser = async (loginPayload: ILoginPayload) => {
       body: JSON.stringify(loginPayload),
     });
 
-    const data: { data: IUserInfo } = await res.json();
-    return { data: data?.data, status: res.status };
+    const data: { data: IUserInfo; message: string } = await res.json();
+    return { data: data?.data, status: res?.status, message: data?.message };
   } catch (error) {
     console.error('Login user failed:', error);
     // return null;

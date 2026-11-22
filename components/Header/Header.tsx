@@ -16,7 +16,7 @@ const Header = () => {
 
   const logout = async () => {
     const { data } = await fetchPOST(URLGenerator('USER', '/protected/v1/auth/logout'));
-    if(data) queryClient.setQueryData(['auth'], null);
+    if (data) queryClient.setQueryData(['auth'], null);
   };
 
   return (

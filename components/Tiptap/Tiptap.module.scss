@@ -192,3 +192,7 @@
 .modal-footer {
   width: fit-content;
 }
+
+.input-group {
+  @include flex(column, flex-start, stretch, $gapSmall);
+}

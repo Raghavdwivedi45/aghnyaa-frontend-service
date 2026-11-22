@@ -12,7 +12,7 @@ export interface INewArticlePayload {
 }
 
 export interface IArticleForm1 {
-  _id?: string;
+  _id: string;
   slug: string;
   title: string;
   excerpt: string;
@@ -35,6 +35,8 @@ export interface IArticleForm1 {
   language: languageType;
   isBookmarkedByUser: boolean;
   isLikedByUser: boolean;
+  references: IReference[];
+  linkedArticles: string[] | ILinkedArticlePopulated[];
 }
 
 export interface IArticleAuthorInfo {
@@ -73,12 +75,15 @@ export interface ITopPerformers {
 }
 
 export interface IAllArticleFilters {
-  page?: number;
-  limit?: number;
+  page?: string;
+  limit?: string;
+  tags?: string;
+  authors?: string;
   authorId?: string;
-  createdAfter?: Date;
-  createdBefore?: Date;
+  createdAfter?: string;
+  createdBefore?: string;
   articleSlug?: string;
+  excludeContent?: boolean;
 }
 
 export interface IAllAuthors {
@@ -94,4 +99,16 @@ export interface IComment {
   articleId: string;
   comment: string;
   createdAt: string;
+}
+
+export interface IReference {
+  type: string;
+  description: string;
+}
+
+export interface ILinkedArticlePopulated {
+  slug: string;
+  title: string;
+  excerpt: string;
+  coverImage: string;
 }
